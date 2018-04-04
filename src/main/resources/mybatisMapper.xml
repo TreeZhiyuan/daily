@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://files.monghoo.com/resources/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.daily.mybatis.MybatisDao">
+    <!-- 启用缓存 -->
+    <cache />
+    <select id="getMenus" resultType="Map">
+    	select * from menu where id=#{idddd}
+    </select>
+
+    <select id="getMenus4ManyParams" resultType="Map">
+    	select * from menu where required=#{param1} and parentMenu=#{param2}
+    </select>
+
+    <select id="getMenus4MapParams" resultType="Map" parameterType="Map">
+    	select * from menu where required=#{required} and parentMenu=#{parentMenu}
+    </select>
+
+    <select id="getMenus4POJO" resultType="Map" parameterType="com.example.daily.mybatis.Menu">
+    	select * from menu where required=#{required} and parentMenu=#{parentMenu}
+    </select>
+</mapper>
