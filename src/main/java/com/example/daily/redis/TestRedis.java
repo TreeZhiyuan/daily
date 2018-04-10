@@ -1,5 +1,8 @@
 package com.example.daily.redis;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +35,27 @@ public class TestRedis {
 		// 保存字符串
 		stringRedisTemplate.opsForValue().set("aaa", "111");
 		Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
-		Assert.assertEquals(true, stringRedisTemplate.delete("aaa"));
+		stringRedisTemplate.delete("aaa");
+		stringRedisTemplate.opsForList().rightPushAll("ListKey", new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add("a");
+				add("b");
+				add("c");
+			}
+		});
+		List<String> result = stringRedisTemplate.opsForList().range("ListKey", 0, -1);
+		Assert.assertEquals(3, result.size());
+		Assert.assertEquals(true, result.containsAll(new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+				add("a");
+				add("b");
+				add("c");
+			}
+		}));
+		stringRedisTemplate.delete("ListKey");
 	}
 
 	@Test
@@ -62,7 +85,6 @@ public class TestRedis {
 		User user = (User) redisTemplate.opsForHash().get("user:", "1");
 		User user2 = (User) stringRedisTemplate.opsForHash().get("user:", "1");
 		System.out.println("dsd");
-
 	}
 
 }
