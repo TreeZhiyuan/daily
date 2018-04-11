@@ -1,4 +1,4 @@
-package com.example.daily.feature.jdk8;
+package com.example.daily.jdk;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.After;
@@ -57,9 +58,15 @@ public class StreamTester {
 				add(new User("emails1", "aa", 22));
 				add(new User("emails2", "bb", 20));
 				add(new User("emails3", "cc", 19));
-				add(new User(null, "cc", 35));
+				add(new User(null, "dd", 35));
 			}
 		};
+		// 顺便折腾一下Predicate
+		Predicate<User> predicate = u -> u.getEmail() != null;
+		users.stream().filter(predicate).forEach(item -> System.out.println(item.getUsername()));;
+		System.out.println("aaaaaaaaaaaaaa");
+		users.stream().filter(predicate.negate()).forEach(item -> System.out.println(item.getUsername()));
+		
 		// List emails = users.stream().filter(u -> u.getEmail() != null &&
 		// u.getEmail().length() > 0).map(User::getEmail).collect(Collectors.toList());
 		List emails = users.stream().filter(u -> u.getEmail() != null && u.getEmail().length() > 0)

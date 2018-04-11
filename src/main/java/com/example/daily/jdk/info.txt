@@ -9,6 +9,7 @@ A functional interface is any interface that contains only one abstract method.
 	https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html#syntax
 
 
+
 Aggregate operations process elements from a stream, not directly from a collection 
 	(which is the reason why the first method invoked in this example is stream). 
 	A stream is a sequence of elements. Unlike a collection, it is not a data structure 
