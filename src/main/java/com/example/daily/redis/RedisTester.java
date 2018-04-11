@@ -142,12 +142,24 @@ public class RedisTester {
 		final String key = "test_object_key";
 		jedis.del(key);
 		
-		jedis.set(key.getBytes(), ObjectTranscoder.serialize(new User("a", "b")));
-		
-		User user = (User) ObjectTranscoder.deserialize(jedis.get(key.getBytes()));
+		User preUser = new User("email", "username", 22);
+		jedis.set(key.getBytes(), ObjectTranscoder.serialize(preUser));
+		User cachedUser = (User) ObjectTranscoder.deserialize(jedis.get(key.getBytes()));
 
-		System.out.println(user.getEmail());
-		
+		System.out.println(cachedUser.getEmail());
+		assertEquals(preUser.getEmail(), cachedUser.getEmail());
+		assertEquals(preUser.getUsername(), cachedUser.getUsername());
+		jedis.del(key);
+	}
+	
+	@Test
+	public void testListObject() {
+		final String key = "test_list_object_key";
+		jedis.del(key);
+		List preList = new ArrayList() {{
+			add(new User("email", "username", 23));
+		}};
+
 		jedis.del(key);
 	}
 

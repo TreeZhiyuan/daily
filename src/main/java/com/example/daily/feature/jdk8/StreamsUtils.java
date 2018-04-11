@@ -1,4 +1,4 @@
-package com.example.daily.common;
+package com.example.daily.feature.jdk8;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ public class StreamsUtils {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new User("a", "aa"));
-				add(new User("b", "bb"));
-				add(new User("c", "cc"));
+				add(new User("emails1", "aa", 22));
+				add(new User("emails2", "bb", 23));
+				add(new User("emails3", "cc", 26));
 			}
 		};
 		List emails = users.stream().map(User::getEmail).collect(Collectors.toList());

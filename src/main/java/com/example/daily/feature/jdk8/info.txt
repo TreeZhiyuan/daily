@@ -1,0 +1,21 @@
+https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
+
+A functional interface is any interface that contains only one abstract method. 
+	(A functional interface may contain one or more default methods or static methods.) 
+	Because a functional interface contains only one abstract method, you can omit the 
+	name of that method when you implement it. To do this, instead of using an anonymous 
+	class expression, you use a lambda expression
+	
+	https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html#syntax
+
+
+Aggregate operations process elements from a stream, not directly from a collection 
+	(which is the reason why the first method invoked in this example is stream). 
+	A stream is a sequence of elements. Unlike a collection, it is not a data structure 
+	that stores elements. Instead, a stream carries values from a source, 
+	such as collection, through a pipeline. A pipeline is a sequence of stream operations, 
+	which in this example is filter- map-forEach. In addition, aggregate operations 
+	typically accept lambda expressions as parameters, enabling you to customize 
+	how they behave.
+	
+	https://docs.oracle.com/javase/tutorial/collections/streams/index.html

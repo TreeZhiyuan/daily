@@ -61,7 +61,7 @@ public class TestRedis {
 	@Test
 	public void test2() throws Exception {
 		// 保存字符串
-		User u = new User("email1", "usr1");
+		User u = new User("email1", "usr1", 33);
 		redisTemplate.opsForHash().put("user:", "1", u);
 		/* 查看redisTemplate 的Serializer */
 		System.out.println(redisTemplate.getKeySerializer());

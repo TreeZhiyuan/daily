@@ -12,13 +12,23 @@ import java.io.Serializable;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public User(String email, String username) {
+	public User(String email, String username, int age) {
 		this.email = email;
 		this.username = username;
+		this.age = age;
 	}
 
 	private String email;
 	private String username;
+	private int age;
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 
 	public String getEmail() {
 		return email;
