@@ -26,5 +26,24 @@ public class StreamsUtils {
 		};
 		List emails = users.stream().map(User::getEmail).collect(Collectors.toList());
 		System.out.println(emails);
+
+		List<String> urls = new ArrayList<String>() {
+			/**
+			* 
+			*/
+			private static final long serialVersionUID = 1L;
+
+			{
+				add("");
+				add(" ");
+				add(" ");
+				add("b");
+				add("a");
+				add("aaaa");
+				add(null);
+			}
+		};
+		List filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0).collect(Collectors.toList());
+		filteredUrls.forEach(a -> System.out.println(a));
 	}
 }
