@@ -22,6 +22,7 @@ public enum Color {
 
 	// 普通方法
 	public String getName() {
+		// 完全没必要，因为每个枚举对象就是一个实例
 		for (Color c : Color.values()) {
 			if (c == this) {
 				return c.name;

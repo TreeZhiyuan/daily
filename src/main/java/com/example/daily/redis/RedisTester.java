@@ -39,8 +39,8 @@ public class RedisTester {
 	public void setUp() throws Exception {
 		// 连接redis服务器(在这里是连接本地的)
 		jedis = new Jedis("127.0.0.1", 6379);
-		// 权限认证
-		jedis.auth("123456");
+		// 权限认证 本地redis会被作为windows服务自启动
+//		jedis.auth("123456");
 		System.out.println("连接服务成功");
 	}
 
