@@ -18,6 +18,17 @@ public class User implements Serializable {
 		this.age = age;
 	}
 
+	public User() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", username=" + username + ", age=" + age + ", getAge()=" + getAge()
+				+ ", getEmail()=" + getEmail() + ", getUsername()=" + getUsername() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
 	private String email;
 	private String username;
 	private int age;

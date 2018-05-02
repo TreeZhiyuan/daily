@@ -24,13 +24,10 @@ public class StreamsUtils {
 				add(new User("emails3", "cc", 26));
 			}
 		};
-		List emails = users.stream().map(User::getEmail).collect(Collectors.toList());
+		List<String> emails = users.stream().map(User::getEmail).collect(Collectors.toList());
 		System.out.println(emails);
 
 		List<String> urls = new ArrayList<String>() {
-			/**
-			* 
-			*/
 			private static final long serialVersionUID = 1L;
 
 			{
@@ -43,7 +40,8 @@ public class StreamsUtils {
 				add(null);
 			}
 		};
-		List filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0).collect(Collectors.toList());
+		List<String> filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0)
+				.collect(Collectors.toList());
 		filteredUrls.forEach(a -> System.out.println(a));
 	}
 }

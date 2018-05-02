@@ -1,6 +1,6 @@
 package com.example.daily.redis;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,7 +40,7 @@ public class RedisTester {
 		// 连接redis服务器(在这里是连接本地的)
 		jedis = new Jedis("127.0.0.1", 6379);
 		// 权限认证 本地redis会被作为windows服务自启动
-//		jedis.auth("123456");
+		// jedis.auth("123456");
 		System.out.println("连接服务成功");
 	}
 
@@ -83,14 +83,15 @@ public class RedisTester {
 		};
 		jedis.hmset(key, map);
 		Map result = jedis.hgetAll(key);
+		assertEquals(map.get("name"), result.get("name"));
 		assertEquals(Long.valueOf(1), jedis.del(key));
 	}
 
 	/**
-	 * jedis操作List
+	 * jedis操作List, 注意如果list包含empty项会就此截断存储,如果使用转成json字符串就不会被截断
 	 */
 	@Test
-	public void testList() {
+	public void testListString() {
 		final String key = "test_list_key";
 		jedis.del(key);
 		List tlist = new ArrayList<String>() {
@@ -99,14 +100,16 @@ public class RedisTester {
 				add("spring");
 				add("springMVC");
 				add("mybatis");
+				add("");
+				add(null);
+				add("spring2345");
 			}
 		};
 		String result = jedis.setex(key.getBytes(), 24 * 60 * 60, ObjectTranscoder.serializeList(tlist));
-		System.out.println("长度:" + ObjectTranscoder.unserializeList(jedis.get(key.getBytes())).size());
-
-		jedis.del(key);
+		List<String> cachedList = (List<String>) ObjectTranscoder.unserializeList(jedis.get(key.getBytes()));
+		cachedList.forEach(a -> System.out.println(a));
 		System.out.println("删除后长度:" + jedis.llen("javaFramework"));
-		System.out.println(jedis.lrange("javaFramework", 0, -1));
+		jedis.del(key);
 	}
 
 	/**
@@ -122,6 +125,9 @@ public class RedisTester {
 				add("spring");
 				add("springMVC");
 				add("mybatis");
+				add("");
+				add(null);
+				add("spring2345");
 			}
 		};
 		String arrayString = JSONArray.fromObject(tlist).toString();
@@ -130,7 +136,8 @@ public class RedisTester {
 
 		System.out.println("获取:" + cachedString);
 		Collection c = JSONArray.toCollection(JSONArray.fromObject(cachedString));
-		List gotlist = new ArrayList<String>(c);
+		List<String> gotlist = new ArrayList<String>(c);
+		gotlist.forEach(a -> System.out.println(a));
 		assertEquals(true, gotlist.containsAll(tlist));
 		jedis.del(key);
 		System.out.println("删除后长度:" + jedis.llen(key));
@@ -141,7 +148,7 @@ public class RedisTester {
 	public void testObject() {
 		final String key = "test_object_key";
 		jedis.del(key);
-		
+
 		User preUser = new User("email", "username", 22);
 		jedis.set(key.getBytes(), ObjectTranscoder.serialize(preUser));
 		User cachedUser = (User) ObjectTranscoder.deserialize(jedis.get(key.getBytes()));
@@ -151,15 +158,28 @@ public class RedisTester {
 		assertEquals(preUser.getUsername(), cachedUser.getUsername());
 		jedis.del(key);
 	}
-	
+
+	/**
+	 * 注意如果需要使用JSONArray.toCollection, 则需要实体类要有无参构造函数
+	 */
 	@Test
 	public void testListObject() {
 		final String key = "test_list_object_key";
 		jedis.del(key);
-		List preList = new ArrayList() {{
-			add(new User("email", "username", 23));
-		}};
+		List<User> preList = new ArrayList<User>() {
+			private static final long serialVersionUID = 1L;
 
+			{
+				add(new User("email", "username", 23));
+			}
+		};
+
+		String arrayString = JSONArray.fromObject(preList).toString();
+		String result = jedis.set(key, arrayString);
+		String cachedString = jedis.get(key);
+		Collection collect = JSONArray.toCollection(JSONArray.fromObject(cachedString), User.class);
+		List<User> gotlist = new ArrayList<User>(collect);
+		System.out.println(gotlist.get(0));
 		jedis.del(key);
 	}
 

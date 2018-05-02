@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,5 +48,27 @@ public class DaliyTest {
 		System.out.println(map.put("1", "11"));
 		System.out.println(map.containsKey("2"));
 		System.out.println(map.put("2", "11"));
+		List urls = new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add("/role/listRole.do");
+				add("/account/getAccountList.do");
+				add("/menu/*");
+				add("/miner/*");
+				add("/order/getOrderList.do");
+				add("/expressConpany/getExpressConpanyList.do");
+				add("/trusteeshipOrder/getTrusteeshipOrderList.do");
+				add("/excel/order.do");
+				add("/banner/getBanners.do");
+				add("/tutorial/getTutorialList.do");
+				add("/tutorial/getTutorialList.do");
+				add("/account/getAccountList.do");
+				add("/agreement/getAgreementList.do");
+				add("/account/addOrUpdateAccount.do");
+			}
+		};
+		String requestUri = "/miner/add.do";
+		String[] sus = requestUri.split("/");
+		System.out.println("///////////////" + (urls.contains(requestUri) || urls.contains("/" + sus[1]+"/*")));
 	}
 }

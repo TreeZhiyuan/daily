@@ -70,7 +70,7 @@ public class HttpClientTests {
 
 	@Test
 	public void testGetRequest() {
-		final String url = "http://www.baidu.com";
+		final String url = "https://cn.bing.com/";
 		/*
 		 * 如果有参数可拼接到url后完成
 		 */

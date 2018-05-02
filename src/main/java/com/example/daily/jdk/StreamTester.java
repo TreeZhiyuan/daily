@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -64,13 +63,13 @@ public class StreamTester {
 		// 顺便折腾一下Predicate
 		Predicate<User> predicate = u -> u.getEmail() != null;
 
-		users.stream().filter(predicate).forEach(item -> System.out.println(item.getUsername()));;
+		users.stream().filter(predicate).forEach(item -> System.out.println(item.getUsername()));
 		System.out.println("aaaaaaaaaaaaaa");
 		users.stream().filter(predicate.negate()).forEach(item -> System.out.println(item.getUsername()));
-		
+
 		// List emails = users.stream().filter(u -> u.getEmail() != null &&
 		// u.getEmail().length() > 0).map(User::getEmail).collect(Collectors.toList());
-		List emails = users.stream().filter(u -> u.getEmail() != null && u.getEmail().length() > 0)
+		List<String> emails = users.stream().filter(u -> u.getEmail() != null && u.getEmail().length() > 0)
 				.map(u -> u.getEmail()).collect(Collectors.toList());
 		System.out.println(String.join("|", emails));
 		assertEquals(users.size() - 1, emails.size());
