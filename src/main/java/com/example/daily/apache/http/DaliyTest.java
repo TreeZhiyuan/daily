@@ -1,6 +1,7 @@
 package com.example.daily.apache.http;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,9 @@ import java.util.regex.Pattern;
 public class DaliyTest {
 
 	public static void main(String[] args) throws IOException {
+		String buyMoney="20,000.00";
+		BigDecimal buyMoney2 = new BigDecimal(buyMoney);
+		System.out.println(buyMoney2);
 		Pattern p = Pattern.compile("(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d) (\\d\\d):(\\d\\d):(\\d\\d)");
 		String rightNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		System.out.println("myString: " + rightNow);
