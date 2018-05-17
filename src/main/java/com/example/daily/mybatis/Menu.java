@@ -1,87 +1,163 @@
 package com.example.daily.mybatis;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
-/**
- * @author: zhiyuan
- * @date: 2018-02-24
- * @project: spring-boot-demo
- * @description:
- */
+@JsonIgnoreProperties(value = {"menu"})
+public class Menu implements Serializable{
 
-public class Menu implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private String id;
-	private String name;
-	private String code;
-	private String required;
-	private String display;
-	private String parentMenu;
-	private String description;
-	private String status;
+    private static final long serialVersionUID = 1L;
 
-	public String getId() {
-		return id;
-	}
+    private Integer id;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String oid;
 
-	public String getName() {
-		return name;
-	}
+    private String pid;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String roleOid;
 
-	public String getCode() {
-		return code;
-	}
+    private String menuName;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    private String menuUrl;
 
-	public String getRequired() {
-		return required;
-	}
+    private String menuSort;
 
-	public void setRequired(String required) {
-		this.required = required;
-	}
+    private Integer isMenu;
 
-	public String getDisplay() {
-		return display;
-	}
+    private Integer menuCode;
 
-	public void setDisplay(String display) {
-		this.display = display;
-	}
+    private Integer delFlag;
 
-	public String getParentMenu() {
-		return parentMenu;
-	}
+    private String createBy;
 
-	public void setParentMenu(String parentMenu) {
-		this.parentMenu = parentMenu;
-	}
+    private String createTime;
 
-	public String getDescription() {
-		return description;
-	}
+    private String updateBy;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    private String updateTime;
 
-	public String getStatus() {
-		return status;
-	}
+    private List<Menu> childs;
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid == null ? null : oid.trim();
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid == null ? null : pid.trim();
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName == null ? null : menuName.trim();
+    }
+
+    public String getMenuUrl() {
+        return menuUrl;
+    }
+
+    public void setMenuUrl(String menuUrl) {
+        this.menuUrl = menuUrl == null ? null : menuUrl.trim();
+    }
+
+    public String getMenuSort() {
+        return menuSort;
+    }
+
+    public void setMenuSort(String menuSort) {
+        this.menuSort = menuSort == null ? null : menuSort.trim();
+    }
+
+    public Integer getIsMenu() {
+        return isMenu;
+    }
+
+    public void setIsMenu(Integer isMenu) {
+        this.isMenu = isMenu;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy == null ? null : createBy.trim();
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy == null ? null : updateBy.trim();
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public List<Menu> getChilds() {
+        return childs;
+    }
+
+    public void setChilds(List<Menu> childs) {
+        this.childs = childs;
+    }
+
+    public String getRoleOid() {
+        return roleOid;
+    }
+
+    public void setRoleOid(String roleOid) {
+        this.roleOid = roleOid;
+    }
+
+    public Integer getMenuCode() {
+        return menuCode;
+    }
+
+    public void setMenuCode(Integer menuCode) {
+        this.menuCode = menuCode;
+    }
 }

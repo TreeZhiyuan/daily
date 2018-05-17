@@ -3,6 +3,12 @@
     "-//mybatis.org//DTD Config 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<!-- 开启驼峰匹配 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="callSettersOnNulls" value="true"/>
+	</settings>
+	
 	<!-- <typeAliases>
 		一次指定一个类的别名
 		<typeAlias alias="role" type="com.jCuckoo.chapter02.pojo.Role" />
@@ -15,9 +21,9 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://localhost:3306/kld_alert" />
-				<property name="username" value="root" />
-				<property name="password" value="root" />
+					value="jdbc:mysql://10.1.11.49:3306/hotchain_dev?characterEncoding=UTF-8" />
+				<property name="username" value="hotchain_dev" />
+				<property name="password" value="Hotchaindev@123456" />
 			</dataSource>
 		</environment>
 	</environments>

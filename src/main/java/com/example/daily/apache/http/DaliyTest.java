@@ -19,9 +19,10 @@ import java.util.regex.Pattern;
 public class DaliyTest {
 
 	public static void main(String[] args) throws IOException {
-		String buyMoney="20,000.00";
+		String buyMoney = "0.90";
+		BigDecimal payMoney = (BigDecimal) null;
 		BigDecimal buyMoney2 = new BigDecimal(buyMoney);
-		System.out.println(buyMoney2);
+		System.out.println(payMoney);
 		Pattern p = Pattern.compile("(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d) (\\d\\d):(\\d\\d):(\\d\\d)");
 		String rightNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		System.out.println("myString: " + rightNow);

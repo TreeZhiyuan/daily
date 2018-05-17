@@ -16,6 +16,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 /**
  * @author: zhiyuan
  * @date: 2018-02-24
@@ -112,7 +115,7 @@ public class MybatisTester {
 	 */
 	@Test
 	public void test4POJO() throws IOException {
-		Menu menu = new Menu();
+		Menu1st menu = new Menu1st();
 		menu.setRequired("1");
 		menu.setParentMenu("1");
 		List<Map> x = dao.getMenus4POJO(menu);
@@ -132,7 +135,7 @@ public class MybatisTester {
 	@Test
 	public void test4Collection() throws IOException {
 		// TODO
-		Menu menu = new Menu();
+		Menu1st menu = new Menu1st();
 		menu.setRequired("1");
 		menu.setParentMenu("1");
 		List<Map> x = dao.getMenus4POJO(menu);
@@ -142,5 +145,22 @@ public class MybatisTester {
 		// 如果上面不设置自动提交表单，那么就需要commit方法
 		session.commit();
 	}
-
+	
+	@Test
+	public void test4Collections(){
+		final String roleOid="";
+		List<Menu> mappedMenus = dao.getMapMenu(roleOid);
+		// 如果上面不设置自动提交表单，那么就需要commit方法
+		System.out.println(JSONArray.fromObject(mappedMenus).toString());
+		session.commit();
+	}
+	
+	@Test
+	public void test5Collections(){
+		final String roleOid="";
+		List<Menu> mappedMenus = dao.getMapMenuSeprate(roleOid);
+		// 如果上面不设置自动提交表单，那么就需要commit方法
+		System.out.println(JSONArray.fromObject(mappedMenus).toString());
+		session.commit();
+	}
 }
