@@ -80,10 +80,9 @@ public class MybatisTester {
 	 */
 	@Test
 	public void test4ManyParams() throws IOException {
-		List<Map> x = dao.getMenus4ManyParams(1, "2"); // 这个方法有个int返回值，会告诉你已影响了多少条数据
+		List<Map> x = dao.getMenus4ManyParams(1, "2");
 		System.out.println(x.get(0).keySet());
 		System.out.println(x.get(0).values());
-		// 如果上面不设置自动提交表单，那么就需要commit方法
 		session.commit();
 	}
 
@@ -101,10 +100,8 @@ public class MybatisTester {
 				put("parentMenu", "1");
 			}
 		});
-		// 这个方法有个int返回值，会告诉你已影响了多少条数据
 		System.out.println(x.get(0).keySet());
 		System.out.println(x.get(0).values());
-		// 如果上面不设置自动提交表单，那么就需要commit方法
 		session.commit();
 	}
 
@@ -119,10 +116,8 @@ public class MybatisTester {
 		menu.setRequired("1");
 		menu.setParentMenu("1");
 		List<Map> x = dao.getMenus4POJO(menu);
-		// 这个方法有个int返回值，会告诉你已影响了多少条数据
 		System.out.println(x.get(0).keySet());
 		System.out.println(x.get(0).values());
-		// 如果上面不设置自动提交表单，那么就需要commit方法
 		session.commit();
 	}
 
@@ -139,10 +134,8 @@ public class MybatisTester {
 		menu.setRequired("1");
 		menu.setParentMenu("1");
 		List<Map> x = dao.getMenus4POJO(menu);
-		// 这个方法有个int返回值，会告诉你已影响了多少条数据
 		System.out.println(x.get(0).keySet());
 		System.out.println(x.get(0).values());
-		// 如果上面不设置自动提交表单，那么就需要commit方法
 		session.commit();
 	}
 	
@@ -150,7 +143,6 @@ public class MybatisTester {
 	public void test4Collections(){
 		final String roleOid="";
 		List<Menu> mappedMenus = dao.getMapMenu(roleOid);
-		// 如果上面不设置自动提交表单，那么就需要commit方法
 		System.out.println(JSONArray.fromObject(mappedMenus).toString());
 		session.commit();
 	}
@@ -159,7 +151,6 @@ public class MybatisTester {
 	public void test5Collections(){
 		final String roleOid="";
 		List<Menu> mappedMenus = dao.getMapMenuSeprate(roleOid);
-		// 如果上面不设置自动提交表单，那么就需要commit方法
 		System.out.println(JSONArray.fromObject(mappedMenus).toString());
 		session.commit();
 	}
