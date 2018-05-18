@@ -2,9 +2,11 @@ package com.example.daily.mybatis;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -138,20 +140,38 @@ public class MybatisTester {
 		System.out.println(x.get(0).values());
 		session.commit();
 	}
-	
+
 	@Test
-	public void test4Collections(){
-		final String roleOid="";
+	public void test4ResultMapCollections() {
+		final String roleOid = "";
 		List<Menu> mappedMenus = dao.getMapMenu(roleOid);
 		System.out.println(JSONArray.fromObject(mappedMenus).toString());
 		session.commit();
 	}
-	
+
 	@Test
-	public void test5Collections(){
-		final String roleOid="";
+	public void test5ResultMapCollections() {
+		final String roleOid = "";
 		List<Menu> mappedMenus = dao.getMapMenuSeprate(roleOid);
+		List codes = getMenuCodes(mappedMenus);
 		System.out.println(JSONArray.fromObject(mappedMenus).toString());
 		session.commit();
+	}
+
+	/**
+	 * 返回所有mapped menu code
+	 * 
+	 * @param menus
+	 * @return list of menu code
+	 */
+	private List<Integer> getMenuCodes(List<Menu> menus) {
+		List<Integer> codes = new ArrayList<Integer>();
+		codes.addAll(menus.stream().map(menu -> {
+			if (menu.getChilds().size() > 0) {
+				codes.addAll(getMenuCodes(menu.getChilds()));
+			}
+			return menu.getMenuCode();
+		}).collect(Collectors.toList()));
+		return codes;
 	}
 }

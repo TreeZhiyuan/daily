@@ -1,0 +1,5 @@
+RedisTester.testListObject();
+
+如果需要使用JSONArray.toCollection, 则需要实体类要有无参构造函数
+否则会出错信息
+	net.sf.json.JSONException: java.lang.NoSuchMethodException: com.example.daily.redis.User.<init>()

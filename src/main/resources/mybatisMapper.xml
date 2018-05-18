@@ -52,19 +52,21 @@
     </select>
 
     <select id="getMapMenuSeprate" resultMap="menuResultMapSeprate">
-    	select menu_name, oid from hc_menu where del_flag=1 and is_menu=1 and pid is null
+    	SELECT oid, menu_name, menu_code FROM hc_menu WHERE del_flag = 1 AND is_menu = 1 AND pid IS NULL
     </select>
     <resultMap type="com.example.daily.mybatis.Menu" id="menuResultMapSeprate">
     	<id column="oid" jdbcType="VARCHAR" property="oid" />
         <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
         <collection property="childs" ofType="com.example.daily.mybatis.Menu" column="oid" select="findMenuByPid" />
     </resultMap>
     <select id="findMenuByPid" parameterType="String" resultMap="menuByPidResult">
-    	select menu_name, oid from hc_menu where pid=#{oid}
+    	select oid, menu_name, menu_code from hc_menu where is_menu=1 and pid=#{oid}
     </select>
     <resultMap type="com.example.daily.mybatis.Menu" id="menuByPidResult">
     	<id column="oid" jdbcType="VARCHAR" property="oid" />
         <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
         <collection property="childs" ofType="com.example.daily.mybatis.Menu" column="oid" select="findMenuByPid" />
     </resultMap>
 </mapper>
