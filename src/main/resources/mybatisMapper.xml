@@ -20,36 +20,6 @@
     <select id="getMenus4POJO" resultType="Map" parameterType="com.example.daily.mybatis.Menu">
     	select * from menu where required=#{required} and parentMenu=#{parentMenu}
     </select>
-    <resultMap type="com.example.daily.mybatis.Menu" id="menuResultMap">
-        <id column="oid" jdbcType="VARCHAR" property="oid" />
-        <result column="pid" jdbcType="VARCHAR" property="pid" />
-        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
-        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
-        <result column="menu_sort" jdbcType="VARCHAR" property="menuSort" />
-        <result column="is_menu" jdbcType="INTEGER" property="isMenu" />
-        <result column="menu_code" jdbcType="INTEGER" property="menuCode" />
-        <collection property="childs" ofType="com.example.daily.mybatis.Menu">
-        	<id column="sOid" property="oid"/>
-        	<result column="sonPid" property="pid"/>
-        	<result column="sonMenuName" property="menuName"/>
-        	<collection property="childs" ofType="com.example.daily.mybatis.Menu">
-        		<id column="tlOid" property="oid"/>
-	        	<result column="tlPid" property="pid"/>
-	        	<result column="tlMenuName" property="menuName"/>
-        	</collection>
-        </collection>
-    </resultMap>
-    <select id="getMapMenu" resultMap="menuResultMap" parameterType="String">
-    	select parent.id, parent.menu_name, parent.oid,parent.menu_code,parent.menu_url,
-			son.oid as sonOid,son.pid as sonPid, son.menu_name as sonMenuName, 
-			son.menu_code sonMenuCode,
-            tlMenu.oid as tlOid, tlMenu.pid as tlPid, tlMenu.menu_name as tlMenuName, 
-            tlMenu.menu_code as tlMenuCode
-		from hc_menu parent
-		left join hc_menu son on son.pid = parent.oid
-        left join hc_menu tlMenu on tlMenu.pid = son.oid
-		where parent.del_flag=1 and parent.is_menu=1 and parent.pid is null
-    </select>
 
     <select id="getMapMenuSeprate" resultMap="menuResultMapSeprate">
     	SELECT oid, menu_name, menu_code FROM hc_menu WHERE del_flag = 1 AND is_menu = 1 AND pid IS NULL

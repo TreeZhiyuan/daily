@@ -142,14 +142,6 @@ public class MybatisTester {
 	}
 
 	@Test
-	public void test4ResultMapCollections() {
-		final String roleOid = "";
-		List<Menu> mappedMenus = dao.getMapMenu(roleOid);
-		System.out.println(JSONArray.fromObject(mappedMenus).toString());
-		session.commit();
-	}
-
-	@Test
 	public void test5ResultMapCollections() {
 		final String roleOid = "";
 		List<Menu> mappedMenus = dao.getMapMenuSeprate(roleOid);

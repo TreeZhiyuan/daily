@@ -32,7 +32,5 @@ public interface MybatisDao {
 
 	List<Map> getMenus4POJO(Menu1st menu);
 	
-	List<Menu> getMapMenu(String roleOid);
-
 	List<Menu> getMapMenuSeprate(String roleOid);
 }
