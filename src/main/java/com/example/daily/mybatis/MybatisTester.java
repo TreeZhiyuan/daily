@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.ibatis.io.Resources;
@@ -17,9 +19,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * @author: zhiyuan
@@ -143,9 +142,10 @@ public class MybatisTester {
 
 	@Test
 	public void test5ResultMapCollections() {
-		final String roleOid = "";
+		String roleOid = "a140b271b4644bc696d35bd53ff88026";
+		roleOid = null;
 		List<Menu> mappedMenus = dao.getMapMenuSeprate(roleOid);
-		List<Integer> codes = getMenuCodes(mappedMenus);
+		Set<Integer> codes = getMenuCodes(mappedMenus);
 		codes.forEach(code -> System.out.println(code));
 		session.commit();
 	}
@@ -156,8 +156,8 @@ public class MybatisTester {
 	 * @param menus
 	 * @return list of menu code
 	 */
-	private List<Integer> getMenuCodes(List<Menu> menus) {
-		List<Integer> codes = new ArrayList<Integer>();
+	private Set<Integer> getMenuCodes(List<Menu> menus) {
+		Set<Integer> codes = new HashSet<Integer>();
 		codes.addAll(menus.stream().map(menu -> {
 			if (menu.getChilds().size() > 0) {
 				codes.addAll(getMenuCodes(menu.getChilds()));

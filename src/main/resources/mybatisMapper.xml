@@ -3,40 +3,59 @@
         "http://files.monghoo.com/resources/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.daily.mybatis.MybatisDao">
-    <!-- 启用缓存 -->
-    <cache />
-    <select id="getMenus" resultType="Map">
-    	select * from menu where id=#{idddd}
-    </select>
+	<!-- 启用缓存 -->
+	<cache />
+	<select id="getMenus" resultType="Map">
+		select * from menu where
+		id=#{idddd}
+	</select>
 
-    <select id="getMenus4ManyParams" resultType="Map">
-    	select * from menu where required=#{param1} and parentMenu=#{param2}
-    </select>
+	<select id="getMenus4ManyParams" resultType="Map">
+		select * from menu
+		where required=#{param1} and parentMenu=#{param2}
+	</select>
 
-    <select id="getMenus4MapParams" resultType="Map" parameterType="Map">
-    	select * from menu where required=#{required} and parentMenu=#{parentMenu}
-    </select>
+	<select id="getMenus4MapParams" resultType="Map" parameterType="Map">
+		select * from menu where required=#{required} and
+		parentMenu=#{parentMenu}
+	</select>
 
-    <select id="getMenus4POJO" resultType="Map" parameterType="com.example.daily.mybatis.Menu">
-    	select * from menu where required=#{required} and parentMenu=#{parentMenu}
-    </select>
+	<select id="getMenus4POJO" resultType="Map"
+		parameterType="com.example.daily.mybatis.Menu">
+		select * from menu where required=#{required} and
+		parentMenu=#{parentMenu}
+	</select>
 
-    <select id="getMapMenuSeprate" resultMap="menuResultMapSeprate">
-    	SELECT oid, menu_name, menu_code FROM hc_menu WHERE del_flag = 1 AND is_menu = 1 AND pid IS NULL
-    </select>
-    <resultMap type="com.example.daily.mybatis.Menu" id="menuResultMapSeprate">
-    	<id column="oid" jdbcType="VARCHAR" property="oid" />
-        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
-        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
-        <collection property="childs" ofType="com.example.daily.mybatis.Menu" column="oid" select="findMenuByPid" />
-    </resultMap>
-    <select id="findMenuByPid" parameterType="String" resultMap="menuByPidResult">
-    	select oid, menu_name, menu_code from hc_menu where is_menu=1 and pid=#{oid}
-    </select>
-    <resultMap type="com.example.daily.mybatis.Menu" id="menuByPidResult">
-    	<id column="oid" jdbcType="VARCHAR" property="oid" />
-        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
-        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
-        <collection property="childs" ofType="com.example.daily.mybatis.Menu" column="oid" select="findMenuByPid" />
-    </resultMap>
+	<!-- ResultMap collections -->
+	<select id="getMapMenuSeprate" resultMap="menuResultMapSeprate">
+		SELECT m.oid, m.menu_name, m.menu_code, #{roleOid} as roleOid
+		FROM hc_menu m left join hc_role_menu rm on rm.menu_oid=m.oid
+		<where>
+			m.del_flag = 1 AND m.is_menu = 1 AND m.pid IS NULL
+			<if test="null != roleOid and roleOid != ''">
+		        AND rm.role_oid = #{roleOid}
+		    </if>
+		</where>
+		group by m.oid
+	</select>
+	<resultMap type="com.example.daily.mybatis.Menu" id="menuResultMapSeprate">
+		<id column="oid" jdbcType="VARCHAR" property="oid" />
+		<result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+		<result column="roleOid" jdbcType="VARCHAR" property="roleOid" />
+		<result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+		<collection property="childs" ofType="com.example.daily.mybatis.Menu"
+			column="{oid=oid,roleOid=roleOid}" select="findMenuByPid" />
+	</resultMap>
+	<select id="findMenuByPid" parameterType="java.util.Map"
+		resultMap="menuResultMapSeprate">
+		select m.oid, m.menu_name, m.menu_code, #{roleOid} as roleOid from hc_menu m
+		left join hc_role_menu rm on rm.menu_oid=m.oid
+		<where>
+			m.pid=#{oid} and m.del_flag = 1 AND m.is_menu = 1
+			<if test="null != roleOid and roleOid != ''">
+		        AND rm.role_oid = #{roleOid}
+		    </if>
+		</where>
+		group by m.oid
+	</select>
 </mapper>

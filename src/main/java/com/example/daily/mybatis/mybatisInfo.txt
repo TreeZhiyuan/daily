@@ -1,0 +1,3 @@
+mybatis collections或者association传递多个参数的方式
+	<collection property="childs" ofType="com.example.daily.mybatis.Menu"
+			column="{oid=oid,roleOid=roleOid}" select="findMenuByPid" />
