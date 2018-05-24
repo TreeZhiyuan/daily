@@ -42,6 +42,6 @@ public class StreamsUtils {
 		};
 		List<String> filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0)
 				.collect(Collectors.toList());
-		filteredUrls.forEach(a -> System.out.println(a));
+		System.out.println(String.join("-", filteredUrls));
 	}
 }

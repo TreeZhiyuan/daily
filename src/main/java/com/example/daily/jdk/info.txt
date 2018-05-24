@@ -20,3 +20,6 @@ Aggregate operations process elements from a stream, not directly from a collect
 	how they behave.
 	
 	https://docs.oracle.com/javase/tutorial/collections/streams/index.html
+
+Java 8简明教程
+http://www.importnew.com/10360.html
