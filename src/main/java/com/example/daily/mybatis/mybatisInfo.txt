@@ -3,5 +3,3 @@ mybatis collections或者association传递多个参数的方式
 			column="{oid=oid,roleOid=roleOid}" select="findMenuByPid" />
 			
 测试一哈
-
-再测试一下
