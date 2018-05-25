@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -166,9 +167,25 @@ public class StreamTester {
     public void testListInteger() {
         Integer[] intArray = { 1, 2, 3, 4, 5, 6, 7, 8 };
         List<Integer> listOfIntegers = new ArrayList<>(Arrays.asList(intArray));
-        listOfIntegers.stream().map(a -> a * 3);
+        List<Integer> mappedIntegers = listOfIntegers.stream().map(a -> a * 3)
+                .collect(Collectors.toList());
         System.out.println(
                 "\r\nSum of integers: " + listOfIntegers.stream().reduce(Integer::sum).get());
+    }
+
+    @Test
+    public void testListIntegerFlatMap() {
+        Integer[] intArray = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        List<Integer> listOfIntegers = new ArrayList<>(Arrays.asList(intArray));
+        List<Integer> mappedIntegers = listOfIntegers.stream().map(a -> a * 3)
+                .collect(Collectors.toList());
+        System.out.println(
+                "\r\nSum of integers: " + listOfIntegers.stream().reduce(Integer::sum).get());
+        Stream<List<Integer>> inputStream = Stream.of(Arrays.asList(1), Arrays.asList(2, 3),
+                Arrays.asList(4, 5, 6));
+        Stream<Integer> outputStream = inputStream.flatMap((childList) -> childList.stream());
+        System.out.println("flatMapped:");
+        outputStream.forEach(System.out::print);
     }
 
 }
