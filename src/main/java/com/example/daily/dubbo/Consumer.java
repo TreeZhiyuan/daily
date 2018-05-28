@@ -14,12 +14,12 @@ public class Consumer {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[] { "consumer.xml" });
-        HelloService helloService = (HelloService) context.getBean("helloService");
         // get service invocation proxy
-        String hello = helloService.sayHello("world");
+        HelloService helloService = (HelloService) context.getBean("helloService");
         // do invoke!
-        System.out.println("-------------------------------------------" + hello);
+        String hello = helloService.sayHello("world");
         // cool, how are you~
+        System.out.println("---------###########----------------------------------" + hello);
     }
 
 }

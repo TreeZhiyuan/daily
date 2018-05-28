@@ -5,7 +5,7 @@
 	<!-- Application name -->
 	<dubbo:application name=" hello-world-app " />
 	<!-- registry address, used for service to register itself -->
-	<dubbo:registry address="multicast://127.1.1.1:1234" />
+	<dubbo:registry address="multicast://224.5.6.7:1234" />
 	<!-- expose this service through dubbo protocol, through port 2 0 8 8 0 -->
 	<dubbo:protocol name="dubbo" port="20880" />
 	<!-- which service interface do we expose? -->
