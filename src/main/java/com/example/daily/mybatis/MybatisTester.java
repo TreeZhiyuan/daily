@@ -146,7 +146,7 @@ public class MybatisTester {
 		roleOid = null;
 		List<Menu> mappedMenus = dao.getMapMenuSeprate(roleOid);
 		Set<Integer> codes = getMenuCodes(mappedMenus);
-		codes.forEach(code -> System.out.println(code));
+		codes.forEach(code -> System.out.printf("%d ", code));
 		session.commit();
 	}
 
