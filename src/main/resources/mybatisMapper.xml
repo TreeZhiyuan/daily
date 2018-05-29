@@ -29,12 +29,13 @@
 	<!-- ResultMap collections -->
 	<select id="getMapMenuSeprate" resultMap="menuResultMapSeprate">
 		SELECT m.oid, m.menu_name, m.menu_code, #{roleOid} as roleOid
-		FROM hc_menu m left join hc_role_menu rm on rm.menu_oid=m.oid
+		FROM
+		hc_menu m left join hc_role_menu rm on rm.menu_oid=m.oid
 		<where>
 			m.del_flag = 1 AND m.is_menu = 1 AND m.pid IS NULL
 			<if test="null != roleOid and roleOid != ''">
-		        AND rm.role_oid = #{roleOid}
-		    </if>
+				AND rm.role_oid = #{roleOid}
+			</if>
 		</where>
 		group by m.oid
 	</select>
@@ -48,14 +49,43 @@
 	</resultMap>
 	<select id="findMenuByPid" parameterType="java.util.Map"
 		resultMap="menuResultMapSeprate">
-		select m.oid, m.menu_name, m.menu_code, #{roleOid} as roleOid from hc_menu m
+		select m.oid, m.menu_name, m.menu_code, #{roleOid} as roleOid from
+		hc_menu m
 		left join hc_role_menu rm on rm.menu_oid=m.oid
 		<where>
 			m.pid=#{oid} and m.del_flag = 1 AND m.is_menu = 1
 			<if test="null != roleOid and roleOid != ''">
-		        AND rm.role_oid = #{roleOid}
-		    </if>
+				AND rm.role_oid = #{roleOid}
+			</if>
 		</where>
 		group by m.oid
+	</select>
+	<resultMap type="com.example.daily.mybatis.Menu" id="baseMenuMapping">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="oid" jdbcType="VARCHAR" property="oid" />
+        <result column="pid" jdbcType="VARCHAR" property="pid" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+        <result column="menu_sort" jdbcType="VARCHAR" property="menuSort" />
+        <result column="is_menu" jdbcType="INTEGER" property="isMenu" />
+        <result column="menu_code" jdbcType="INTEGER" property="menuCode" />
+        <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="role_oid" jdbcType="VARCHAR" property="roleOid" />
+    </resultMap>
+	<select id="getMenuDiffParamType" resultMap="baseMenuMapping">
+		SELECT oid, pid, menu_code, menu_name FROM hc_menu
+		<where>
+			del_flag=1
+			<if test="menu.menuName != null and menu.menuName !=''">
+				and menu_name like CONCAT('%',#{menu.menuName},'%')
+			</if>
+		</where>
+		<if test="page > -1 and rows > 0">
+			limit #{page}, #{rows}
+		</if>
 	</select>
 </mapper>
