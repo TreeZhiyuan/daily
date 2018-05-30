@@ -23,7 +23,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<dubbo.version>2.6.1</dubbo.version>
+		<!-- dubbo 2.6.1存在bug https://github.com/apache/incubator-dubbo/issues?utf8=%E2%9C%93&q=+dubbo.xsd -->
+		<!-- <dubbo.version>2.6.1</dubbo.version> -->
+		<dubbo.version>2.6.0</dubbo.version>
 	</properties>
 
 	<dependencies>
