@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -19,6 +21,8 @@ import org.junit.Test;
 
 import com.example.daily.redis.User;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 /**
  * @author: zhiyuan
  * @date: 2018-04-11
@@ -26,7 +30,7 @@ import com.example.daily.redis.User;
  * @description:
  */
 
-public class StreamTester {
+public class List2MapTester {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -186,6 +190,65 @@ public class StreamTester {
         Stream<Integer> outputStream = inputStream.flatMap((childList) -> childList.stream());
         System.out.println("flatMapped:");
         outputStream.forEach(System.out::print);
+    }
+
+    @Test
+    public void testList2Map() {
+        List<User> users = new ArrayList<User>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add(new User("emails1", "aa", 22));
+                add(new User("emails2", "bb", 20));
+                add(new User("emails3", "cc", 19));
+                add(new User(null, "dd", 35));
+                add(new User("emall", "eee", 26));
+            }
+        };
+
+        // users.stream().collect(Collectors.toMap(Account::getId, account -> account));
+        Map<String, User> emailUser = users.stream()
+                .collect(Collectors.toMap(User::getEmail, Function.identity()));
+
+        List<String> listOfEmails = users.stream().map(User::getEmail).collect(Collectors.toList());
+        listOfEmails.stream().forEach(System.out::println);
+        System.out.println("--------------------------");
+        Map<String, String> EmailName = users.stream()
+                .collect(Collectors.toMap(User::getEmail, User::getUsername));
+        EmailName.forEach((key, value) -> {
+            System.out.printf("key is %s and value is %s\n\r", key, value);
+        });
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        for (Map.Entry<String, String> item : EmailName.entrySet()) {
+            System.out.printf("key is %s and value is %s\n\r", item.getKey(), item.getValue());
+        }
+    }
+
+    // https://zacard.net/2016/03/17/java8-list-to-map/
+
+    /**
+     * accounts.stream().collect(Collectors.toMap(Account::getUsername,
+     * Function.identity(), (key1, key2) -> key2));
+     */
+    @Test
+    public void List2MapExceptions() {
+        List<User> users = new ArrayList<User>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add(new User("emails1", "aa", 22));
+                add(new User("emails2", "bb", 20));
+                add(new User("emails3", "cc", 19));
+                add(new User(null, "dd", 35));
+                add(new User("emall", "eee", 26));
+                add(new User("emall", "fff", 23));
+            }
+        };
+//        Map<String, User> emailUserException = users.stream()
+//                .collect(Collectors.toMap(User::getEmail, Function.identity()));
+        Map<String, User> emailUser = users.stream()
+                .collect(Collectors.toMap(User::getEmail, Function.identity(), (key1, key2) -> key2));
+        System.out.println("----------------------");
     }
 
 }
