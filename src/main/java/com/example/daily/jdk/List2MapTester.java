@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -20,8 +19,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.example.daily.redis.User;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 /**
  * @author: zhiyuan
@@ -114,8 +111,12 @@ public class List2MapTester {
                 add(new User(null, "dd", 35));
             }
         };
+        // 可以自定义一个Consumer的操作逻辑
+        // Consumer<User> squarConsumer = a -> a.setAge(a.getAge() * 2);
 
-        Consumer<User> squarConsumer = a -> a.setAge(a.getAge() * 2);
+        Consumer<User> squarConsumer = a -> {
+            a.setAge(a.getAge() * 2);
+        };
         users.forEach(a -> squarConsumer.accept(a));
         users.forEach(System.out::print);
 
@@ -131,7 +132,9 @@ public class List2MapTester {
      */
     @Test
     public void testFunction() {
-        // showing the difference between Function, Consumer and Predicate
+        /**
+         * showing the difference between Function, Consumer and Predicate
+         */
         String name = "";
         String name1 = "1234";
         String name2 = "12345";
@@ -244,11 +247,22 @@ public class List2MapTester {
                 add(new User("emall", "fff", 23));
             }
         };
-//        Map<String, User> emailUserException = users.stream()
-//                .collect(Collectors.toMap(User::getEmail, Function.identity()));
-        Map<String, User> emailUser = users.stream()
-                .collect(Collectors.toMap(User::getEmail, Function.identity(), (key1, key2) -> key2));
+        /**
+         * 在Map中有相同的key存在
+         */
+        // Map<String, User> emailUserException = users.stream()
+        // .collect(Collectors.toMap(User::getEmail, Function.identity()));
+        Map<String, User> emailUser = users.stream().collect(
+                Collectors.toMap(User::getEmail, Function.identity(), (key1, key2) -> key2));
         System.out.println("----------------------");
+    }
+
+    @Test
+    public void list2MapStrings() {
+        Map<String, Double> kvs = Arrays.asList("a:1.0", "b:2.0", "c:3.0").stream()
+                .map(elem -> elem.split(":"))
+                .collect(Collectors.toMap(e -> e[0], e -> Double.parseDouble(e[1])));
+        System.out.print(kvs);
     }
 
 }

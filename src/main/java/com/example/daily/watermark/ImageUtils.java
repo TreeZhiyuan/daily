@@ -23,11 +23,13 @@ import javax.imageio.ImageIO;
 
 /**
  * 图片工具类， 图片水印，文字水印，缩放，补白等
- * 
+ *
  * @author Carl He
  */
 public final class ImageUtils {
-    /** 图片格式：JPG */
+    /**
+     * 图片格式：JPG
+     */
     private static final String PICTRUE_FORMATE_JPG = "jpg";
     @SuppressWarnings("unused")
     private static final String TMP_FILE_DIR = ImageUtils.class.getClassLoader()
@@ -38,20 +40,15 @@ public final class ImageUtils {
 
     /**
      * 添加图片水印
-     * 
-     * @param targetImg
-     *            目标图片路径，如：C://myPictrue//1.jpg
-     * @param waterImg
-     *            水印图片路径，如：C://myPictrue//logo.png
-     * @param x
-     *            水印图片距离目标图片左侧的偏移量，如果x<0, 则在正中间
-     * @param y
-     *            水印图片距离目标图片上侧的偏移量，如果y<0, 则在正中间
-     * @param alpha
-     *            透明度(0.0 -- 1.0, 0.0为完全透明，1.0为完全不透明)
+     *
+     * @param targetImg 目标图片路径，如：C://myPictrue//1.jpg
+     * @param waterImg  水印图片路径，如：C://myPictrue//logo.png
+     * @param x         水印图片距离目标图片左侧的偏移量，如果x<0, 则在正中间
+     * @param y         水印图片距离目标图片上侧的偏移量，如果y<0, 则在正中间
+     * @param alpha     透明度(0.0 -- 1.0, 0.0为完全透明，1.0为完全不透明)
      */
     public final static void pressImage(String targetImg, String waterImg, int x, int y,
-            float alpha) {
+                                        float alpha) {
         try {
             File file = new File(targetImg);
             Image image = ImageIO.read(file);
@@ -93,7 +90,6 @@ public final class ImageUtils {
     }
 
     /**
-     * 
      * @param inputStream
      * @param waterImgFile
      * @param x
@@ -102,7 +98,7 @@ public final class ImageUtils {
      * @return
      */
     public final static File pressImage(InputStream inputStream, File waterImgFile, int x, int y,
-            float alpha) {
+                                        float alpha) {
         try {
             File resultFile = new File(TMP_FILE_DIR + File.separator + "temp.jpg");
             Image image = ImageIO.read(inputStream);
@@ -149,28 +145,19 @@ public final class ImageUtils {
 
     /**
      * 添加文字水印
-     * 
-     * @param targetImg
-     *            目标图片路径，如：C://myPictrue//1.jpg
-     * @param pressText
-     *            水印文字， 如：中国证券网
-     * @param fontName
-     *            字体名称， 如：宋体
-     * @param fontStyle
-     *            字体样式，如：粗体和斜体(Font.BOLD|Font.ITALIC)
-     * @param fontSize
-     *            字体大小，单位为像素
-     * @param color
-     *            字体颜色
-     * @param x
-     *            水印文字距离目标图片左侧的偏移量，如果x<0, 则在正中间
-     * @param y
-     *            水印文字距离目标图片上侧的偏移量，如果y<0, 则在正中间
-     * @param alpha
-     *            透明度(0.0 -- 1.0, 0.0为完全透明，1.0为完全不透明)
+     *
+     * @param targetImg 目标图片路径，如：C://myPictrue//1.jpg
+     * @param pressText 水印文字， 如：中国证券网
+     * @param fontName  字体名称， 如：宋体
+     * @param fontStyle 字体样式，如：粗体和斜体(Font.BOLD|Font.ITALIC)
+     * @param fontSize  字体大小，单位为像素
+     * @param color     字体颜色
+     * @param x         水印文字距离目标图片左侧的偏移量，如果x<0, 则在正中间
+     * @param y         水印文字距离目标图片上侧的偏移量，如果y<0, 则在正中间
+     * @param alpha     透明度(0.0 -- 1.0, 0.0为完全透明，1.0为完全不透明)
      */
     public static void pressText(String targetImg, String pressText, String fontName, int fontStyle,
-            int fontSize, Color color, int x, int y, float alpha) {
+                                 int fontSize, Color color, int x, int y, float alpha) {
         try {
             File file = new File(targetImg);
 
@@ -210,7 +197,7 @@ public final class ImageUtils {
 
     /**
      * 获取字符长度，一个汉字作为 1 个字符, 一个英文字母作为 0.5 个字符
-     * 
+     *
      * @param text
      * @return 字符长度，如：text="中国",返回 2；text="test",返回 2；text="中国ABC",返回 4.
      */
@@ -227,15 +214,11 @@ public final class ImageUtils {
 
     /**
      * 图片缩放
-     * 
-     * @param filePath
-     *            图片路径
-     * @param height
-     *            高度
-     * @param width
-     *            宽度
-     * @param bb
-     *            比例不对时是否需要补白
+     *
+     * @param filePath 图片路径
+     * @param height   高度
+     * @param width    宽度
+     * @param bb       比例不对时是否需要补白
      */
     public static File resize(File f, int height, int width, boolean bb) {
         File waterTmpFile = new File(TMP_FILE_DIR + File.separator + "waterTmpMark.png");
