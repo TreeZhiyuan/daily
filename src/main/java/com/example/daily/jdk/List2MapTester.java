@@ -216,13 +216,13 @@ public class List2MapTester {
         List<String> listOfEmails = users.stream().map(User::getEmail).collect(Collectors.toList());
         listOfEmails.stream().forEach(System.out::println);
         System.out.println("--------------------------");
-        Map<String, String> EmailName = users.stream()
+        Map<String, String> EmailNameMap = users.stream()
                 .collect(Collectors.toMap(User::getEmail, User::getUsername));
-        EmailName.forEach((key, value) -> {
+        EmailNameMap.forEach((key, value) -> {
             System.out.printf("key is %s and value is %s\n\r", key, value);
         });
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        for (Map.Entry<String, String> item : EmailName.entrySet()) {
+        for (Map.Entry<String, String> item : EmailNameMap.entrySet()) {
             System.out.printf("key is %s and value is %s\n\r", item.getKey(), item.getValue());
         }
     }

@@ -1,6 +1,7 @@
 package com.example.daily.redis;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author: zhiyuan
@@ -55,5 +56,22 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		User user = (User) o;
+		return Objects.equals(email, user.getEmail());
 	}
 }
