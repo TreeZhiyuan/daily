@@ -1,7 +1,5 @@
 package com.example.daily.jdk;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +60,7 @@ public class StreamDistinct {
                 add(new User());
             }
         };
-        // todo
+        // TODO
     }
 
 }
