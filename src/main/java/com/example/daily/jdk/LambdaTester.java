@@ -27,7 +27,7 @@ import com.example.daily.redis.User;
  * @description:
  */
 
-public class List2MapTester {
+public class LambdaTester {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -45,21 +45,76 @@ public class List2MapTester {
     public void tearDown() throws Exception {
     }
 
+    private List<User> initUserData(){
+         List<User> users = new ArrayList<User>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add(new User("123","emails1", "aa", 22));
+                add(new User("324","emails2", "bb", 20));
+                add(new User("456","emails3", "cc", 19));
+                add(new User("987",null, "dd", 35));
+            }
+        };
+         return users;
+    }
+
+    @Test
+    public void testDistinctIds() {
+        List<Long> ids = new ArrayList<Long>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add(123l);
+                add(123l);
+                add(234l);
+                add(232l);
+            }
+        };
+        List<Long> distinctIds = ids.stream().distinct().collect(Collectors.toList());
+        distinctIds.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void testDistinctObjects() {
+        List<User> ids = new ArrayList<User>() {
+            private static final long serialVersionUID = 1L;
+            {
+                add(new User());
+            }
+        };
+        // TODO
+    }
+
+    @Test
+    public void testStringUrls(){
+        List<User> users = initUserData();
+        List<String> emails = users.stream().map(User::getEmail).collect(Collectors.toList());
+        System.out.println(emails);
+
+        List<String> urls = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add("");
+                add(" ");
+                add(" ");
+                add("b");
+                add("a");
+                add("aaaa");
+                add(null);
+            }
+        };
+        List<String> filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0)
+                .collect(Collectors.toList());
+        System.out.println(String.join("-", filteredUrls));
+    }
+
     /*
      * Determines if the input object matches some criteria.
      */
     @Test
     public void testPredicate() {
-        List<User> users = new ArrayList<User>() {
-            private static final long serialVersionUID = 1L;
-
-            {
-                add(new User("emails1", "aa", 22));
-                add(new User("emails2", "bb", 20));
-                add(new User("emails3", "cc", 19));
-                add(new User(null, "dd", 35));
-            }
-        };
+        List<User> users = initUserData();
         // 折腾一下Predicate
         Predicate<User> predicate = u -> u.getEmail() != null;
 
@@ -101,16 +156,8 @@ public class List2MapTester {
      */
     @Test
     public void testConsumer() {
-        List<User> users = new ArrayList<User>() {
-            private static final long serialVersionUID = 1L;
+        List<User> users = initUserData();
 
-            {
-                add(new User("emails1", "aa", 22));
-                add(new User("emails2", "bb", 20));
-                add(new User("emails3", "cc", 19));
-                add(new User(null, "dd", 35));
-            }
-        };
         // 可以自定义一个Consumer的操作逻辑
         // Consumer<User> squarConsumer = a -> a.setAge(a.getAge() * 2);
 
@@ -178,6 +225,8 @@ public class List2MapTester {
                 .collect(Collectors.toList());
         System.out.println(
                 "\r\nSum of integers: " + listOfIntegers.stream().reduce(Integer::sum).get());
+        System.out.println(
+                "\r\nSum of integers: " + mappedIntegers.stream().reduce(Integer::sum).get());
     }
 
     @Test
@@ -197,17 +246,7 @@ public class List2MapTester {
 
     @Test
     public void testList2Map() {
-        List<User> users = new ArrayList<User>() {
-            private static final long serialVersionUID = 1L;
-
-            {
-                add(new User("emails1", "aa", 22));
-                add(new User("emails2", "bb", 20));
-                add(new User("emails3", "cc", 19));
-                add(new User(null, "dd", 35));
-                add(new User("emall", "eee", 26));
-            }
-        };
+        List<User> users = initUserData();
 
         // users.stream().collect(Collectors.toMap(Account::getId, account -> account));
         Map<String, User> emailUser = users.stream()
@@ -235,18 +274,7 @@ public class List2MapTester {
      */
     @Test
     public void List2MapExceptions() {
-        List<User> users = new ArrayList<User>() {
-            private static final long serialVersionUID = 1L;
-
-            {
-                add(new User("emails1", "aa", 22));
-                add(new User("emails2", "bb", 20));
-                add(new User("emails3", "cc", 19));
-                add(new User(null, "dd", 35));
-                add(new User("emall", "eee", 26));
-                add(new User("emall", "fff", 23));
-            }
-        };
+        List<User> users = initUserData();
         /**
          * 在Map中有相同的key存在
          */
@@ -254,12 +282,12 @@ public class List2MapTester {
         // .collect(Collectors.toMap(User::getEmail, Function.identity()));
         Map<String, User> emailUser = users.stream().collect(
                 Collectors.toMap(User::getEmail, Function.identity(), (key1, key2) -> key2));
-        System.out.println("----------------------");
+        System.out.printf("----------------------", emailUser);
     }
 
     @Test
     public void list2MapStrings() {
-        Map<String, Double> kvs = Arrays.asList("a:1.0", "b:2.0", "c:3.0").stream()
+        Map<String, Double> kvs = Stream.of("a:1.0", "b:2.0", "c:3.0")
                 .map(elem -> elem.split(":"))
                 .collect(Collectors.toMap(e -> e[0], e -> Double.parseDouble(e[1])));
         System.out.print(kvs);

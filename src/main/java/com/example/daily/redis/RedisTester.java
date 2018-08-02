@@ -28,15 +28,15 @@ public class RedisTester {
 	private Jedis jedis;
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() {
 	}
 
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
+	public static void tearDownAfterClass() {
 	}
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		// 连接redis服务器(在这里是连接本地的)
 		jedis = new Jedis("127.0.0.1", 6379);
 		// 权限认证 本地redis会被作为windows服务自启动
@@ -45,7 +45,7 @@ public class RedisTester {
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		jedis.close();
 		System.out.println("关闭服务成功");
 	}
@@ -149,7 +149,7 @@ public class RedisTester {
 		final String key = "test_object_key";
 		jedis.del(key);
 
-		User preUser = new User("email", "username", 22);
+		User preUser = new User("Haha134", "email", "username", 22);
 		jedis.set(key.getBytes(), ObjectTranscoder.serialize(preUser));
 		User cachedUser = (User) ObjectTranscoder.deserialize(jedis.get(key.getBytes()));
 
@@ -170,7 +170,7 @@ public class RedisTester {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new User("email", "username", 23));
+				add(new User("Haha123", "email", "username", 23));
 			}
 		};
 

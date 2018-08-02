@@ -1,4 +1,4 @@
-package com.example.daily.mybatis;
+package com.example.daily.common;
 
 import java.util.ArrayList;
 import java.util.List;

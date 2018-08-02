@@ -50,7 +50,7 @@ public class DateTest {
         boolean convertSuccess = true;
         // 指定日期格式
         SimpleDateFormat format = new SimpleDateFormat(template, Locale.CHINA); // 例如：yyyy-MM-dd
-                                                                                // HH:mm:ss
+        // HH:mm:ss
         try {
             // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期，比如2007/02/29会被接受，并转换成2007/03/01
             format.setLenient(false);
@@ -85,6 +85,23 @@ public class DateTest {
     }
 
     @Test
+    public void testClearHMSCalendar() {
+
+        Calendar now = Calendar.getInstance();
+        now.setTime(new Date());
+        now.add(Calendar.DATE, 3);
+        // now.clear(Calendar.HOUR); or now.clear(Calendar.HOUR_OF_DAY); does not work well
+        now.set(Calendar.HOUR, 0);
+        now.clear(Calendar.MINUTE);
+        now.clear(Calendar.SECOND);
+        System.out.println(now.getTime());
+
+        now.set(9998, 11, 31);
+        System.out.println(now.getTime());
+
+    }
+
+    @Test
     public void testCalendarRegion() {
         Calendar calendar1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
         Calendar calendar2 = Calendar.getInstance(TimeZone.getTimeZone("GMT+1"));
@@ -97,7 +114,6 @@ public class DateTest {
     }
 
     /**
-     * 
      * @param d1
      * @param d2
      * @return
@@ -124,7 +140,7 @@ public class DateTest {
     public void TestBetweenDays() {
         Calendar cal1 = Calendar.getInstance();
         cal1.set(2000, 1, 20);
-        
+
         Calendar cal2 = Calendar.getInstance();
         cal2.set(2000, 1, 22);
         int days = getDaysBetween(cal1, cal2);

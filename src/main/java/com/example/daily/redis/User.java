@@ -13,7 +13,8 @@ import java.util.Objects;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public User(String email, String username, int age) {
+	public User(String id, String email, String username, int age) {
+	    this.id = id;
 		this.email = email;
 		this.username = username;
 		this.age = age;
@@ -23,18 +24,20 @@ public class User implements Serializable {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", username=" + username + ", age=" + age + ", getAge()=" + getAge()
-				+ ", getEmail()=" + getEmail() + ", getUsername()=" + getUsername() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
+	private String id;
 	private String email;
 	private String username;
 	private int age;
 
-	public int getAge() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getAge() {
 		return age;
 	}
 
@@ -60,7 +63,7 @@ public class User implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email);
+		return Objects.hash(email + id);
 	}
 
 	@Override
