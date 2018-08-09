@@ -14,8 +14,6 @@ public class MathTester {
         System.out.printf("%s\r\n", Math.ceil(10));
         System.out.printf("%s\r\n", Math.ceil(10.20));
         System.out.printf("%s\r\n", Math.ceil(10.3));
-
-
         byte a = 1;
         System.out.printf("%s\r\n", a==0);
     }
