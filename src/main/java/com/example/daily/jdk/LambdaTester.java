@@ -45,15 +45,15 @@ public class LambdaTester {
     public void tearDown() throws Exception {
     }
 
-    private List<User> initUserData(){
-         List<User> users = new ArrayList<User>() {
+    private List<User> initUserData() {
+        List<User> users = new ArrayList<User>() {
             private static final long serialVersionUID = 1L;
 
             {
-                add(new User("123","emails1", "aa", 22));
-                add(new User("324","emails2", "bb", 20));
-                add(new User("456","emails3", "cc", 19));
-                add(new User("987",null, "dd", 35));
+                add(new User("123", "emails1", "aa", 22));
+                add(new User("324", "emails2", "bb", 20));
+                add(new User("456", "emails3", "cc", 19));
+                add(new User("987", null, "dd", 35));
             }
         };
         return users;
@@ -64,62 +64,12 @@ public class LambdaTester {
     }
 
     @Test
-    public void testDistinctIds() {
-        List<Long> ids = new ArrayList<Long>() {
-            private static final long serialVersionUID = 1L;
-
-            {
-                add(123l);
-                add(123l);
-                add(234l);
-                add(232l);
-            }
-        };
-        List<Long> distinctIds = ids.stream().distinct().collect(Collectors.toList());
-        distinctIds.stream().forEach(System.out::println);
-    }
-
-    @Test
-    public void testDistinctObjects() {
-        List<User> ids = new ArrayList<User>() {
-            private static final long serialVersionUID = 1L;
-
-            {
-                add(new User());
-            }
-        };
-    }
-
-    @Test
-    public void testStringUrls() {
+    public void testObject2Map() {
+        // turn User list to Map<String, User>
         List<User> users = initUserData();
-        List<String> emails = users.stream().map(User::getEmail).collect(Collectors.toList());
-        System.out.println(emails);
-
-        List<String> urls = new ArrayList<String>() {
-            private static final long serialVersionUID = 1L;
-
-            {
-                add("");
-                add(" ");
-                add(" ");
-                add("b");
-                add("a");
-                add("aaaa");
-                add(null);
-            }
-        };
-        List<String> filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0)
-                .collect(Collectors.toList());
-        System.out.println(String.join("-", filteredUrls));
-    }
-
-    @Test
-    public void testStrings() {
-        String[] stringArray = {"Barbara", "James", "Mary", "John", "Patricia", "Robert",
-                "Michael", "Linda"};
-        Arrays.sort(stringArray, String::compareToIgnoreCase);
-        System.out.println(String.join(">", stringArray));
+        Map<String, User> map = users.stream().collect(Collectors.toMap(User::getId, v -> v));
+        System.out.println(map.keySet());
+        System.out.println(map.values());
     }
 
     /*
@@ -217,6 +167,65 @@ public class LambdaTester {
 
     public boolean validInput3(String name, Predicate<String> function) {
         return function.test(name);
+    }
+
+    @Test
+    public void testDistinctIds() {
+        List<Long> ids = new ArrayList<Long>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add(123l);
+                add(123l);
+                add(234l);
+                add(232l);
+            }
+        };
+        List<Long> distinctIds = ids.stream().distinct().collect(Collectors.toList());
+        distinctIds.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void testDistinctObjects() {
+        List<User> ids = new ArrayList<User>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add(new User());
+            }
+        };
+    }
+
+    @Test
+    public void testStringUrls() {
+        List<User> users = initUserData();
+        List<String> emails = users.stream().map(User::getEmail).collect(Collectors.toList());
+        System.out.println(emails);
+
+        List<String> urls = new ArrayList<String>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add("");
+                add(" ");
+                add(" ");
+                add("b");
+                add("a");
+                add("aaaa");
+                add(null);
+            }
+        };
+        List<String> filteredUrls = urls.stream().filter(a -> a != null && a.trim().length() != 0)
+                .collect(Collectors.toList());
+        System.out.println(String.join("-", filteredUrls));
+    }
+
+    @Test
+    public void testStrings() {
+        String[] stringArray = {"Barbara", "James", "Mary", "John", "Patricia", "Robert",
+                "Michael", "Linda"};
+        Arrays.sort(stringArray, String::compareToIgnoreCase);
+        System.out.println(String.join(">", stringArray));
     }
 
     /**
