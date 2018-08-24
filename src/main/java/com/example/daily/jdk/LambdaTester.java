@@ -56,13 +56,18 @@ public class LambdaTester {
                 add(new User("987",null, "dd", 35));
             }
         };
-         return users;
+        return users;
+    }
+
+    private void printLine() {
+        System.out.printf("%s\r\n", "-------------------华丽的分割线-------------------");
     }
 
     @Test
     public void testDistinctIds() {
         List<Long> ids = new ArrayList<Long>() {
             private static final long serialVersionUID = 1L;
+
             {
                 add(123l);
                 add(123l);
@@ -78,15 +83,15 @@ public class LambdaTester {
     public void testDistinctObjects() {
         List<User> ids = new ArrayList<User>() {
             private static final long serialVersionUID = 1L;
+
             {
                 add(new User());
             }
         };
-        // TODO
     }
 
     @Test
-    public void testStringUrls(){
+    public void testStringUrls() {
         List<User> users = initUserData();
         List<String> emails = users.stream().map(User::getEmail).collect(Collectors.toList());
         System.out.println(emails);
@@ -109,6 +114,14 @@ public class LambdaTester {
         System.out.println(String.join("-", filteredUrls));
     }
 
+    @Test
+    public void testStrings() {
+        String[] stringArray = {"Barbara", "James", "Mary", "John", "Patricia", "Robert",
+                "Michael", "Linda"};
+        Arrays.sort(stringArray, String::compareToIgnoreCase);
+        System.out.println(String.join(">", stringArray));
+    }
+
     /*
      * Determines if the input object matches some criteria.
      */
@@ -118,16 +131,16 @@ public class LambdaTester {
         // 折腾一下Predicate
         Predicate<User> predicate = u -> u.getEmail() != null;
 
-        System.out.println("aaaaaaaaaaaaaa");
+        printLine();
         users.stream().filter(predicate).forEach(item -> System.out.println(item.getUsername()));
-        System.out.println("aaaaaaaaaaaaaa");
+        printLine();
         users.stream().filter(predicate.negate())
                 .forEach(item -> System.out.println(item.getUsername()));
-        System.out.println("aaaaaaaaaaaaaa");
+        printLine();
         users.stream().filter(predicate.and(a -> a.getAge() > 20))
                 .forEach(item -> System.out.println(item.getUsername()));
 
-        System.out.println("------------------------");
+        printLine();
         List<String> emails = users.stream()
                 .filter(u -> u.getEmail() != null && u.getEmail().length() > 0)
                 .map(u -> u.getEmail()).collect(Collectors.toList());
@@ -135,22 +148,14 @@ public class LambdaTester {
         assertEquals(users.size() - 1, emails.size());
     }
 
-    @Test
-    public void testStrings() {
-        String[] stringArray = { "Barbara", "James", "Mary", "John", "Patricia", "Robert",
-                "Michael", "Linda" };
-        Arrays.sort(stringArray, String::compareToIgnoreCase);
-        System.out.println(String.join(">", stringArray));
-    }
-
     /*
-     * 
+     *
      * Consumer接口的文档声明如下：
-     * 
+     *
      * An operation which accepts a single input argument and returns no result.
      * Unlike most other functional interfaces, Consumer is expected to operate via
      * side-effects.
-     * 
+     *
      * 即接口表示一个接受单个输入参数并且没有返回值的操作。不像其它函数式接口，Consumer接口期望执行带有副作用的操作(
      * Consumer的操作可能会更改输入参数的内部状态)。
      */
@@ -174,7 +179,7 @@ public class LambdaTester {
      * method. (A functional interface may contain one or more default methods or
      * static methods.) Because a functional interface contains only one abstract
      * method, you can omit the name of that method when you implement it.
-     * 
+     *
      * https://blog.csdn.net/pzxwhc/article/details/48314039
      */
     @Test
@@ -219,7 +224,7 @@ public class LambdaTester {
      */
     @Test
     public void testListInteger() {
-        Integer[] intArray = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        Integer[] intArray = {1, 2, 3, 4, 5, 6, 7, 8};
         List<Integer> listOfIntegers = new ArrayList<>(Arrays.asList(intArray));
         List<Integer> mappedIntegers = listOfIntegers.stream().map(a -> a * 3)
                 .collect(Collectors.toList());
@@ -231,7 +236,7 @@ public class LambdaTester {
 
     @Test
     public void testListIntegerFlatMap() {
-        Integer[] intArray = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        Integer[] intArray = {1, 2, 3, 4, 5, 6, 7, 8};
         List<Integer> listOfIntegers = new ArrayList<>(Arrays.asList(intArray));
         List<Integer> mappedIntegers = listOfIntegers.stream().map(a -> a * 3)
                 .collect(Collectors.toList());
