@@ -54,6 +54,7 @@ public class LambdaTester {
                 add(new User("324", "emails2", "bb", 20));
                 add(new User("456", "emails3", "cc", 19));
                 add(new User("987", null, "dd", 35));
+                add(new User("324", null, "ee", 30));
             }
         };
         return users;
@@ -62,6 +63,23 @@ public class LambdaTester {
     private void printLine() {
         System.out.printf("%s\r\n", "-------------------华丽的分割线-------------------");
     }
+
+    @Test
+    public void testObjectGroupBy() {
+        // turn User list to Map<String, User>
+        List<User> users = initUserData();
+        Map map= users.stream().collect(Collectors.groupingBy(User::getId, Collectors.toList()));
+    }
+
+    @Test
+    public void testObjectSubList() {
+        // turn User list to Map<String, User>
+        List<User> users = initUserData();
+        List<User> subUsers = users.subList(0,99);
+        System.out.printf("%s\r\n", "hahaha");
+    }
+
+
 
     @Test
     public void testObject2Map() {
