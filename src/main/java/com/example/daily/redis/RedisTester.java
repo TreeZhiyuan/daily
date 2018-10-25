@@ -160,7 +160,7 @@ public class RedisTester {
 	}
 
 	/**
-	 * 注意如果需要使用JSONArray.toCollection, 则需要实体类要有无参构造函数
+	 * 注意如果需要使用JSONArray.toCollection, 则需要实体类要有无参构造函数s
 	 */
 	@Test
 	public void testListObject() {
