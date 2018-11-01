@@ -65,20 +65,27 @@ public class LambdaTester {
     }
 
     @Test
+    public void sumAge() {
+        List<User> users = initUserData();
+        int ages = users.stream().filter(a -> a.getEmail() != null).mapToInt(User::getAge).sum();
+        long count = users.stream().filter(a -> a.getEmail() != null).mapToInt(User::getAge).count();
+        System.out.printf("age求和：%d,数量：%d", ages, count);
+    }
+
+    @Test
     public void testObjectGroupBy() {
         // turn User list to Map<String, User>
         List<User> users = initUserData();
-        Map map= users.stream().collect(Collectors.groupingBy(User::getId, Collectors.toList()));
+        Map map = users.stream().collect(Collectors.groupingBy(User::getId, Collectors.toList()));
     }
 
     @Test
     public void testObjectSubList() {
         // turn User list to Map<String, User>
         List<User> users = initUserData();
-        List<User> subUsers = users.subList(0,99);
+        List<User> subUsers = users.subList(0, 99);
         System.out.printf("%s\r\n", "hahaha");
     }
-
 
 
     @Test

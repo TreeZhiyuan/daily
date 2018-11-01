@@ -1,10 +1,7 @@
 package com.example.daily.jdk;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -39,6 +36,15 @@ public class DateTest {
 
     @Test
     public void test() {
+        List<String> ls = new ArrayList<String>(){{
+            add("1");
+            add("1l");
+            add("1lll");
+            add("1l@ll");
+        }};
+
+        System.out.printf("%s\r\n", ls.subList(0,3));
+
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar c = Calendar.getInstance();
         c.set(2000, 1, 20);
