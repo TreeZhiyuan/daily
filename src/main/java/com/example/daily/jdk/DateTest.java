@@ -36,14 +36,14 @@ public class DateTest {
 
     @Test
     public void test() {
-        List<String> ls = new ArrayList<String>(){{
+        List<String> ls = new ArrayList<String>() {{
             add("1");
             add("1l");
             add("1lll");
             add("1l@ll");
         }};
 
-        System.out.printf("%s\r\n", ls.subList(0,3));
+        System.out.printf("%s\r\n", ls.subList(0, 3));
 
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar c = Calendar.getInstance();
@@ -92,19 +92,50 @@ public class DateTest {
 
     @Test
     public void testClearHMSCalendar() {
-
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.CHINA);
         Calendar now = Calendar.getInstance();
-        now.setTime(new Date());
         now.add(Calendar.DATE, 3);
         // now.clear(Calendar.HOUR); or now.clear(Calendar.HOUR_OF_DAY); does not work well
+        now.set(Calendar.HOUR_OF_DAY, 0);
+        now.clear(Calendar.MINUTE);
+        now.clear(Calendar.SECOND);
+        now.clear(Calendar.MILLISECOND);
+        System.out.println(format.format(now.getTime()));
+
+        now.set(9998, 11, 31);
+        System.out.println(format.format(now.getTime()));
+
+    }
+
+    @Test
+    public void checkB() {
+        Calendar calendar = Calendar.getInstance();
+		// 时
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		// 分
+		calendar.set(Calendar.MINUTE, 0);
+		// 秒
+		calendar.set(Calendar.SECOND, 0);
+		// 毫秒
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		Date time = calendar.getTime();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		String format = df.format(time);
+		System.out.println(format);
+    }
+
+    @Test
+    public void checkC() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        Calendar now = Calendar.getInstance();
         now.set(Calendar.HOUR, 0);
         now.clear(Calendar.MINUTE);
         now.clear(Calendar.SECOND);
-        System.out.println(now.getTime());
 
-        now.set(9998, 11, 31);
-        System.out.println(now.getTime());
-
+        System.out.println(format.format(now.getTime()));
+        now.add(Calendar.DATE, 4);
+        System.out.println(format.format(now.getTime()));
     }
 
     @Test

@@ -144,7 +144,7 @@ public class LambdaTester {
         Consumer<User> squarConsumer = a -> {
             a.setAge(a.getAge() * 2);
         };
-        users.forEach(a -> squarConsumer.accept(a));
+        users.forEach(squarConsumer);
         users.forEach(System.out::print);
 
     }
