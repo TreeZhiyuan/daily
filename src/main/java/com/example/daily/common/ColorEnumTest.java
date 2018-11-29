@@ -17,7 +17,7 @@ public class ColorEnumTest {
 		System.out.println(ColorEnum.YELLO == ColorEnum.RED);
 		ColorEnum [] colors = ColorEnum.values();
 		
-		System.out.printf("%d-%d", Calendar.getInstance().getTimeInMillis(), new Date().getTime());
+		System.out.printf("getTimeInMillis: %d and getTime: %d", Calendar.getInstance().getTimeInMillis(), new Date().getTime());
 	}
 
 }
