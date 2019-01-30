@@ -1,13 +1,9 @@
 package com.example.daily.jdk;
 
+import org.junit.*;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  * @author: zhiyuan
@@ -110,19 +106,19 @@ public class DateTest {
     @Test
     public void checkB() {
         Calendar calendar = Calendar.getInstance();
-		// 时
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		// 分
-		calendar.set(Calendar.MINUTE, 0);
-		// 秒
-		calendar.set(Calendar.SECOND, 0);
-		// 毫秒
-		calendar.set(Calendar.MILLISECOND, 0);
+        // 时
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        // 分
+        calendar.set(Calendar.MINUTE, 0);
+        // 秒
+        calendar.set(Calendar.SECOND, 0);
+        // 毫秒
+        calendar.set(Calendar.MILLISECOND, 0);
 
-		Date time = calendar.getTime();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		String format = df.format(time);
-		System.out.println(format);
+        Date time = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String format = df.format(time);
+        System.out.println(format);
     }
 
     @Test
@@ -171,6 +167,15 @@ public class DateTest {
             } while (d1.get(Calendar.YEAR) != y2);
         }
         return days;
+    }
+
+    @Test
+    public void testCutDown() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2019, 1, 26);
+        Date currentDate = new Date();
+        System.out.println(cal.getTime().getTime());
+        System.out.println(currentDate.getTime());
     }
 
     @Test

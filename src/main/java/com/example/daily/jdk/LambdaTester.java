@@ -1,6 +1,7 @@
 package com.example.daily.jdk;
 
-import static org.junit.Assert.assertEquals;
+import com.example.daily.redis.User;
+import org.junit.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +13,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.example.daily.redis.User;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author: zhiyuan
@@ -53,6 +48,7 @@ public class LambdaTester {
                 add(new User("123", "emails1", "aa", 22));
                 add(new User("324", "emails2", "bb", 20));
                 add(new User("456", "emails3", "cc", 19));
+                add(new User("123", "emails3222", "dd", 23));
                 add(new User("987", null, "dd", 35));
                 add(new User("324", null, "ee", 30));
             }
@@ -91,7 +87,7 @@ public class LambdaTester {
     @Test
     public void testObject2Map() {
         // turn User list to Map<String, User>
-        List<User> users = initUserData();
+        List<User> users = new ArrayList<>();
         Map<String, User> map = users.stream().collect(Collectors.toMap(User::getId, v -> v));
         System.out.println(map.keySet());
         System.out.println(map.values());
@@ -319,8 +315,8 @@ public class LambdaTester {
          */
         // Map<String, User> emailUserException = users.stream()
         // .collect(Collectors.toMap(User::getEmail, Function.identity()));
-        Map<String, User> emailUser = users.stream().collect(
-                Collectors.toMap(User::getEmail, Function.identity(), (key1, key2) -> key2));
+        Map<String, String> emailUser = users.stream().collect(
+                Collectors.toMap(User::getEmail, User::getUsername, (key1, key2) -> key2));
         System.out.printf("----------------------", emailUser);
     }
 
