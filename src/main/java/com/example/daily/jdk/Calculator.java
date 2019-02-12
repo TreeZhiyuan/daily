@@ -26,7 +26,7 @@ public class Calculator {
         Calculator myApp = new Calculator();
         System.out.println("40 + 2 = " + myApp.operateBinary(40, 2, (a, b) -> a + b));
         System.out.println("20 - 10 = " + myApp.operateBinary(20, 10, (a, b) -> a - b));
-        System.out.printf("%s\r\n", String.format("以有城市经理分配该上门区域:%s-%s-%s", "aaaa", "bbb", "cc"));
+        System.out.printf("%s\r\n", String.format("以有城市经理分配该上门区域:%s-%s-%s-%d", "aaaa", "bbb", "cc",23));
     }
 
 }

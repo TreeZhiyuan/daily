@@ -122,6 +122,34 @@ public class DateTest {
     }
 
     @Test
+    public void testCalendarSetUp() {
+        Calendar c = Calendar.getInstance();  // 当前时间的日历对象。
+        c.set(2018, 2, 28);
+        System.out.println(c.get(Calendar.MONTH));
+        System.out.println(c.get(Calendar.YEAR));
+
+        Calendar c2 = Calendar.getInstance();  // 当前时间的日历对象。
+        c2.set(2018, 2, 30);
+        //删除下面两行与不删除下面两行  debug查看的结果截然不同
+        System.out.println(c2.get(Calendar.MONTH));
+        System.out.println(c2.get(Calendar.YEAR));
+        System.out.println(c.after(c2)); // 相等的话 return false
+        System.out.println(c.before(c2));// 相等的话 return true
+    }
+
+    @Test
+    public void test222() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 2018);
+        c.set(Calendar.MONTH, 4);
+        c.set(Calendar.DATE, 13);
+        System.out.println(c.get(Calendar.MONTH));
+        System.out.println(c.get(Calendar.YEAR));
+        System.out.println(c.get(Calendar.DATE));
+    }
+
+
+    @Test
     public void checkC() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         Calendar now = Calendar.getInstance();
