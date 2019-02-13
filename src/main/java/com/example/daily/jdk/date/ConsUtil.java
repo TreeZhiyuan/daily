@@ -1,4 +1,4 @@
-package com.example.daily.common;
+package com.example.daily.jdk.date;
 
 import java.util.*;
 

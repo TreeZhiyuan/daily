@@ -1,4 +1,4 @@
-package com.example.daily.jdk;
+package com.example.daily.jdk.date;
 
 import org.junit.*;
 

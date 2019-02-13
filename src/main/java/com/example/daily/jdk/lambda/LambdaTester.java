@@ -1,19 +1,12 @@
-package com.example.daily.jdk;
+package com.example.daily.jdk.lambda;
 
 import com.example.daily.redis.User;
 import org.junit.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.*;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author: zhiyuan
@@ -64,8 +57,8 @@ public class LambdaTester {
     public void sumAge() {
         List<User> users = initUserData();
         int ages = users.stream().filter(a -> a.getEmail() != null).mapToInt(User::getAge).sum();
-        long count = users.stream().filter(a -> a.getEmail() != null).mapToInt(User::getAge).count();
-        System.out.printf("age求和：%d,数量：%d", ages, count);
+        long count = users.stream().filter(a -> a.getEmail() != null).count();
+        System.out.printf("age求和：%d,数量：%d\r\n", ages, count);
     }
 
     @Test
@@ -93,101 +86,43 @@ public class LambdaTester {
         System.out.println(map.values());
     }
 
-    /*
-     * Determines if the input object matches some criteria.
+    // https://zacard.net/2016/03/17/java8-list-to-map/
+
+    /**
+     * accounts.stream().collect(Collectors.toMap(Account::getUsername,
+     * Function.identity(), (key1, key2) -> key2));
      */
     @Test
-    public void testPredicate() {
+    public void List2MapExceptions() {
         List<User> users = initUserData();
-        // 折腾一下Predicate
-        Predicate<User> predicate = u -> u.getEmail() != null;
-
-        printLine();
-        users.stream().filter(predicate).forEach(item -> System.out.println(item.getUsername()));
-        printLine();
-        users.stream().filter(predicate.negate())
-                .forEach(item -> System.out.println(item.getUsername()));
-        printLine();
-        users.stream().filter(predicate.and(a -> a.getAge() > 20))
-                .forEach(item -> System.out.println(item.getUsername()));
-
-        printLine();
-        List<String> emails = users.stream()
-                .filter(u -> u.getEmail() != null && u.getEmail().length() > 0)
-                .map(u -> u.getEmail()).collect(Collectors.toList());
-        System.out.println(String.join("|", emails));
-        assertEquals(users.size() - 1, emails.size());
-    }
-
-    /*
-     *
-     * Consumer接口的文档声明如下：
-     *
-     * An operation which accepts a single input argument and returns no result.
-     * Unlike most other functional interfaces, Consumer is expected to operate via
-     * side-effects.
-     *
-     * 即接口表示一个接受单个输入参数并且没有返回值的操作。不像其它函数式接口，Consumer接口期望执行带有副作用的操作(
-     * Consumer的操作可能会更改输入参数的内部状态)。
-     */
-    @Test
-    public void testConsumer() {
-        List<User> users = initUserData();
-
-        // 可以自定义一个Consumer的操作逻辑
-        // Consumer<User> squarConsumer = a -> a.setAge(a.getAge() * 2);
-
-        Consumer<User> squarConsumer = a -> {
-            a.setAge(a.getAge() * 2);
-        };
-        users.forEach(squarConsumer);
-        users.forEach(System.out::print);
-
-    }
-
-    /*
-     * A functional interface is any interface that contains only one abstract
-     * method. (A functional interface may contain one or more default methods or
-     * static methods.) Because a functional interface contains only one abstract
-     * method, you can omit the name of that method when you implement it.
-     *
-     * https://blog.csdn.net/pzxwhc/article/details/48314039
-     */
-    @Test
-    public void testFunction() {
         /**
-         * showing the difference between Function, Consumer and Predicate
+         * 在Map中有相同的key存在
          */
-        String name = "";
-        String name1 = "1234";
-        String name2 = "12345";
-        System.out.println(validInput(name, inputStr -> inputStr.isEmpty() ? "名字不能为空" : inputStr));
-        System.out
-                .println(validInput(name1, inputStr -> inputStr.length() > 3 ? "名字过长" : inputStr));
-        System.out.println("--------------------------------------");
-        validInput2(name, inputStr -> System.out.println(inputStr.isEmpty() ? "名字不能为空!" : "名字正常"));
-        validInput2(name1, inputStr -> System.out.println(inputStr.isEmpty() ? "名字不能为空" : "名字正常"));
-        System.out.println("--------------------------------------");
-
-        System.out.println(
-                validInput3(name, inputStr -> !inputStr.isEmpty() && inputStr.length() <= 3));
-        System.out.println(
-                validInput3(name1, inputStr -> !inputStr.isEmpty() && inputStr.length() <= 3));
-        System.out.println(
-                validInput3(name2, inputStr -> !inputStr.isEmpty() && inputStr.length() <= 3));
-
+        // Map<String, User> emailUserException = users.stream()
+        // .collect(Collectors.toMap(User::getEmail, Function.identity()));
+        Map<String, String> emailUser = users.stream().collect(
+                Collectors.toMap(User::getEmail, User::getUsername, (key1, key2) -> key2));
+        System.out.printf("----------------------", emailUser);
     }
 
-    public String validInput(String name, Function<String, String> function) {
-        return function.apply(name);
+    @Test
+    public void arrayStr2ListLong() {
+        String[] ids = new String[]{"123", "234", "456", "678"};
+        Arrays.stream(ids).map(Long::parseLong).collect(Collectors.toList());
+        List<Long> LongIds = new ArrayList<Long>() {{
+            addAll(Arrays.stream(ids).map(Long::parseLong).collect(Collectors.toList()));
+        }};
+        LongIds.stream().forEach(System.out::println);
     }
 
-    public void validInput2(String name, Consumer<String> function) {
-        function.accept(name);
-    }
-
-    public boolean validInput3(String name, Predicate<String> function) {
-        return function.test(name);
+    @Test
+    public void test() {
+        // return a immutable empty list
+        List<User> strs = Collections.emptyList();
+        for (User item : strs) {
+            System.out.println(item);
+        }
+        System.out.println(strs.size());
     }
 
     @Test
@@ -299,25 +234,6 @@ public class LambdaTester {
         for (Map.Entry<String, String> item : EmailNameMap.entrySet()) {
             System.out.printf("key is %s and value is %s\n\r", item.getKey(), item.getValue());
         }
-    }
-
-    // https://zacard.net/2016/03/17/java8-list-to-map/
-
-    /**
-     * accounts.stream().collect(Collectors.toMap(Account::getUsername,
-     * Function.identity(), (key1, key2) -> key2));
-     */
-    @Test
-    public void List2MapExceptions() {
-        List<User> users = initUserData();
-        /**
-         * 在Map中有相同的key存在
-         */
-        // Map<String, User> emailUserException = users.stream()
-        // .collect(Collectors.toMap(User::getEmail, Function.identity()));
-        Map<String, String> emailUser = users.stream().collect(
-                Collectors.toMap(User::getEmail, User::getUsername, (key1, key2) -> key2));
-        System.out.printf("----------------------", emailUser);
     }
 
     @Test

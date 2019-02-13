@@ -1,4 +1,4 @@
-package com.example.daily.jdk;
+package com.example.daily.jdk.lambda;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
