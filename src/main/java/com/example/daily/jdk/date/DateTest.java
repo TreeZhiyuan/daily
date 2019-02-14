@@ -104,8 +104,9 @@ public class DateTest {
     }
 
     @Test
-    public void checkB() {
+    public void checkFaultTolerance() {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(2018, 1, 30);
         // 时
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         // 分
@@ -133,8 +134,8 @@ public class DateTest {
         //删除下面两行与不删除下面两行  debug查看的结果截然不同
         System.out.println(c2.get(Calendar.MONTH));
         System.out.println(c2.get(Calendar.YEAR));
-        System.out.println(c.after(c2)); // 相等的话 return false
-        System.out.println(c.before(c2));// 相等的话 return true
+        System.out.println(c.after(c2)); // c在c2之后或者相等的话 return false
+        System.out.println(c.before(c2));// c在c2之前或者相等的话 return true
     }
 
     @Test
