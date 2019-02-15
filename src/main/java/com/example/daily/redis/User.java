@@ -1,5 +1,7 @@
 package com.example.daily.redis;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,7 +11,7 @@ import java.util.Objects;
  * @project: daily
  * @description:
  */
-
+@Data
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -36,38 +38,6 @@ public class User implements Serializable {
     private String email;
     private String username;
     private int age;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     @Override
     public int hashCode() {

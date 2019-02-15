@@ -2,13 +2,8 @@ package com.example.daily.apache.http;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,9 +42,9 @@ public class DaliyTest {
 
         String code = "{\"type\":\"10\",\"token\":\"9538288D8F4C3757F6969E88E40A3E75\"}";
         String encoded = java.net.URLEncoder.encode(code, "UTF-8");
-        System.out.printf("encoded result: %s\n", encoded);
+        System.out.printf("encoded result: %s\r\n", encoded);
         String decoded = java.net.URLDecoder.decode(encoded, "UTF-8");
-        System.out.printf("decoded result: %s\r", decoded);
+        System.out.printf("decoded result: %s\r\n", decoded);
         System.out.println("end");
         /**
          * return value of the method for hashmap put
