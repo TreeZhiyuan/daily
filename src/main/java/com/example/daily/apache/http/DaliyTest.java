@@ -1,5 +1,8 @@
 package com.example.daily.apache.http;
 
+import com.example.daily.redis.User;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -14,6 +17,23 @@ import java.util.regex.Pattern;
  * @description:
  */
 public class DaliyTest {
+    @Test
+    public void testListAdd() {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            User user = new User();
+            user.setEmail("123" + String.valueOf(i) + "@l61.com");
+            users.add(user);
+        }
+        System.out.println(users.size());
+    }
+
+    @Test
+    public void testReplace() {
+        String detailUrl = "ciw://mall/merchant?store_id={storeId},this {storeId} should be replaced";
+        detailUrl = detailUrl.replace("{storeId}", "12093");
+        System.out.println(detailUrl);
+    }
 
     public static void main(String[] args) throws IOException {
         String buyMoney = "0.90";
@@ -29,8 +49,8 @@ public class DaliyTest {
         while (m.find()) {
             System.out.printf(
                     "origin string: %s, find the year: %s, the month: %s, "
-                    + "the date: %s, the hour: %s, the minute: %s, "
-                    + "the second: %s\n\r",
+                            + "the date: %s, the hour: %s, the minute: %s, "
+                            + "the second: %s\n\r",
                     m.group(0), m.group(1), m.group(2), m.group(3), m.group(4),
                     m.group(5), m.group(6));
         }
@@ -57,6 +77,7 @@ public class DaliyTest {
         System.out.println(map.put("2", "11"));
         List<String> urls = new ArrayList<String>() {
             private static final long serialVersionUID = 1L;
+
             {
                 add("/role/listRole.do");
                 add("/account/getAccountList.do");
