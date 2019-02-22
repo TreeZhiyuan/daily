@@ -1,10 +1,14 @@
 package com.example.daily.apache.http;
 
 import com.example.daily.redis.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -16,6 +20,7 @@ import java.util.regex.Pattern;
  * @project: spring-boot-demo
  * @description:
  */
+@Slf4j
 public class DaliyTest {
     @Test
     public void testListAdd() {
@@ -29,9 +34,36 @@ public class DaliyTest {
     }
 
     @Test
+    public void test2() {
+        boolean t = Boolean.valueOf("daw");
+
+        final String url = "http://www.baidu.com?q=微信&filter=%s";
+        String encodedUrl = "";
+        try {
+            encodedUrl = URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            log.info("UnsupportedEncodingException for url: {},charset:{}", url, "UTF-8");
+        } finally {
+        }
+        System.out.println(encodedUrl);
+        String decodedUrl = null;
+        try {
+            decodedUrl = URLDecoder.decode(encodedUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            log.info("UnsupportedEncodingException for url: {},charset:{}", encodedUrl, "UTF-8");
+            e.printStackTrace();
+        } finally {
+        }
+        System.out.println(decodedUrl);
+    }
+
+    @Test
     public void testReplace() {
         String detailUrl = "ciw://mall/merchant?store_id={storeId},this {storeId} should be replaced";
         detailUrl = detailUrl.replace("{storeId}", "12093");
+        detailUrl = "ciw://mall/merchant?store_id=%d,this storeId should be replaced";
+        System.out.println(detailUrl);
+        detailUrl = String.format(detailUrl, 12093);
         System.out.println(detailUrl);
     }
 
