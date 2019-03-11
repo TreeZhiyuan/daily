@@ -1,6 +1,7 @@
 package com.example.daily.apache.http;
 
 import com.example.daily.redis.User;
+import com.gexin.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -31,6 +32,74 @@ public class DaliyTest {
             users.add(user);
         }
         System.out.println(users.size());
+    }
+
+    @Test
+    public void testPwdFormate(){
+        Object a =null;
+        System.out.println(a+"");
+
+        boolean result = true;
+        result = Boolean.valueOf("null");
+        result = Boolean.valueOf("");
+        result = Boolean.valueOf(null);
+        result = Boolean.valueOf("hello thank u");
+        result = Boolean.valueOf("True");
+    }
+
+    @Test
+    public void test() {
+        List<Long> ids = new ArrayList<>();
+        for (int i = 0; i < 93; i++) {
+            ids.add(Long.valueOf(i + 1));
+        }
+
+        int batchCount = 50;
+        int startIndex = 0; // 从第0个下标开始
+        while (startIndex < ids.size()) {
+            int endIndex = 0;
+            if (ids.size() - batchCount < startIndex) {
+                endIndex = ids.size();
+            } else {
+                endIndex = startIndex + batchCount;
+            }
+            List subUserIds = ids.subList(startIndex, endIndex);
+
+            System.out.print(subUserIds);
+            System.out.print("---------------------------------");
+            startIndex = startIndex + batchCount;
+        }
+
+
+    }
+
+    public static<T> List<List<T>> batchList(List<T> sourceList, int batchCount) {
+        List<List<T>> returnList = new ArrayList<>();
+        int startIndex = 0; // 从第0个下标开始
+        while (startIndex < sourceList.size()) {
+            int endIndex = 0;
+            if (sourceList.size() - batchCount < startIndex) {
+                endIndex = sourceList.size();
+            } else {
+                endIndex = startIndex + batchCount;
+            }
+            returnList.add(sourceList.subList(startIndex, endIndex));
+            startIndex = startIndex + batchCount; // 下一批
+        }
+        return returnList;
+    }
+
+    @Test
+    public void test222() {
+        System.out.print(Long.valueOf(null));
+        String content = "语文:${语文},dwadw:${语文}";
+        String jsonMessage = "{\"语文\":\"88\"}";
+        Map<String, Object> object = JSONObject.parseObject(jsonMessage);
+        for (String key : object.keySet()) {
+            String value = object.get(key).toString();
+            content = content.replace(String.format("${%s}", key), value);
+        }
+        System.out.println(content);
     }
 
     @Test
