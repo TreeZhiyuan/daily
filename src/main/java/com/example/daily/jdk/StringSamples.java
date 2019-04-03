@@ -13,7 +13,7 @@ import java.util.Date;
  * <p>
  * https://docs.oracle.com/javase/9/docs/api/java/util/Formatter.html
  */
-public class StringFormat {
+public class StringSamples {
     /**
      * 1000 -> 1,000
      */
@@ -72,5 +72,25 @@ public class StringFormat {
     public void testReplaceStr() {
         String formatted = String.format("%s今年%d岁。", "小李", 30);
         System.out.println(formatted);
+    }
+
+    @Test
+    public void testStringInternSingle() {
+        String h = new String("cc");
+        String intern = h.intern();
+        System.out.println(intern == h);
+    }
+
+    @Test
+    public void testStringIntern() {
+        String s = new String("1");
+        s.intern();
+        String s2 = "1";
+        System.out.println(s == s2);
+
+        String s3 = new String("1") + new String("1");
+        s3.intern();
+        String s4 = "11";
+        System.out.println(s3 == s4);
     }
 }

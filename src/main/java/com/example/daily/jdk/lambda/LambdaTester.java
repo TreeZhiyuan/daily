@@ -41,7 +41,7 @@ public class LambdaTester {
                 add(new User("123", "emails1", "aa", 22));
                 add(new User("324", "emails2", "bb", 20));
                 add(new User("456", "emails3", "cc", 19));
-                add(new User("123", "emails3222", "dd", 23));
+//                add(new User("123", "emails3222", "dd", 23));
                 add(new User("987", null, "dd", 35));
                 add(new User("324", null, "ee", 30));
             }
@@ -76,11 +76,28 @@ public class LambdaTester {
         System.out.printf("%s\r\n", "hahaha");
     }
 
+    @Test
+    public void testObject2Map222() {
+        // turn User list to Map<String, User>
+        Integer code = Integer.valueOf(-9);
+        if (code > 0) {
+            System.out.printf("kkkkkkkkkk");
+        } else {
+            System.out.println("LambdaTester.testObject2Map222");
+        }
+
+        String msgCode = "22345";
+        String msgKey = "AC";
+        String msgName = "client";
+        String result = String.join("_", Arrays.asList(msgCode, msgKey, msgName));
+        System.out.println(result);
+    }
+
 
     @Test
     public void testObject2Map() {
         // turn User list to Map<String, User>
-        List<User> users = new ArrayList<>();
+        List<User> users = initUserData();
         Map<String, User> map = users.stream().collect(Collectors.toMap(User::getId, v -> v));
         System.out.println(map.keySet());
         System.out.println(map.values());

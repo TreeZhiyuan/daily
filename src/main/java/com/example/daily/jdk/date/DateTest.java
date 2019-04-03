@@ -104,6 +104,17 @@ public class DateTest {
     }
 
     @Test
+    public void 当月最后一天() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 0);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(DateUtil.DEFAULT_DATE_FORMAT);
+        String formatedDate = sdf.format(calendar.getTime());
+        System.out.printf("当月最后一天是：%s\r\n", formatedDate);
+    }
+
+    @Test
     public void checkFaultTolerance() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018, 1, 30);

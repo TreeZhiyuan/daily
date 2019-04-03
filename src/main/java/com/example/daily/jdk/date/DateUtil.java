@@ -19,11 +19,12 @@ import java.util.Locale;
 /**
  * 时间工具. <br/>
  *
- * @author yuliqian
+ * @author Zhiyuan Cui
  * @version 1.0.0
  * @date 2017年10月18日 下午3:06:27
  */
 public class DateUtil {
+    private DateUtil(){}
     /**
      * 缺省日期格式 yyyy-MM-dd
      */

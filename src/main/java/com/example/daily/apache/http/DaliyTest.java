@@ -2,6 +2,7 @@ package com.example.daily.apache.http;
 
 import com.example.daily.redis.User;
 import com.gexin.fastjson.JSONObject;
+import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -35,9 +36,9 @@ public class DaliyTest {
     }
 
     @Test
-    public void testPwdFormate(){
-        Object a =null;
-        System.out.println(a+"");
+    public void testPwdFormate() {
+        Object a = null;
+        System.out.println(a + "");
 
         boolean result = true;
         result = Boolean.valueOf("null");
@@ -48,7 +49,25 @@ public class DaliyTest {
     }
 
     @Test
-    public void test() {
+    public void testMap() {
+//        Map TransmissionContent = ImmutableMap.of("title", "appTitle", "content", "appText", "action", "appAction");
+        Map TransmissionContent = ImmutableMap.of("title", "appTitle", "content", "appText", "action", "appAction");
+        TransmissionContent.get("title");
+    }
+
+    @Test
+    public void testInteger() {
+        int putongScore = 0;
+        try {
+            putongScore = Integer.valueOf("222");
+        } catch (Exception e) {
+
+        }
+        System.out.println(putongScore);
+    }
+
+    @Test
+    public void test根据步长截取集合() {
         List<Long> ids = new ArrayList<>();
         for (int i = 0; i < 93; i++) {
             ids.add(Long.valueOf(i + 1));
@@ -65,15 +84,13 @@ public class DaliyTest {
             }
             List subUserIds = ids.subList(startIndex, endIndex);
 
-            System.out.print(subUserIds);
-            System.out.print("---------------------------------");
+            System.out.println(subUserIds);
+            System.out.println("---------------------------------");
             startIndex = startIndex + batchCount;
         }
-
-
     }
 
-    public static<T> List<List<T>> batchList(List<T> sourceList, int batchCount) {
+    public static <T> List<List<T>> batchList(List<T> sourceList, int batchCount) {
         List<List<T>> returnList = new ArrayList<>();
         int startIndex = 0; // 从第0个下标开始
         while (startIndex < sourceList.size()) {
@@ -90,7 +107,7 @@ public class DaliyTest {
     }
 
     @Test
-    public void test222() {
+    public void test替换指定字符串() {
         System.out.print(Long.valueOf(null));
         String content = "语文:${语文},dwadw:${语文}";
         String jsonMessage = "{\"语文\":\"88\"}";
@@ -103,7 +120,7 @@ public class DaliyTest {
     }
 
     @Test
-    public void test2() {
+    public void test地址编码和解码() {
         boolean t = Boolean.valueOf("daw");
 
         final String url = "http://www.baidu.com?q=微信&filter=%s";
