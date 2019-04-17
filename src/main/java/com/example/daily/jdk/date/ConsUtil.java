@@ -1,13 +1,16 @@
 package com.example.daily.jdk.date;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 
 /**
- * @Auther: Zhiyuan Cui
- * @Project: crm-system
- * @Date: 2018/12/25 14:19
- * @Description:
+ * Author: Zhiyuan Cui
+ * Project: crm-system
+ * Date: 2018/12/25 14:19
+ * Description:
  */
+@Slf4j
 public class ConsUtil {
     /**
      * 通过身份证号码获取出生日期、性别、年龄
@@ -79,7 +82,7 @@ public class ConsUtil {
     public static String getAgeBracketByBirth(Date birthday) {
         String age = "未知";
         if (birthday == null) {
-            System.out.println("根据生日(yyyy-MM-dd)判断年龄段时, 生日信息为空");
+            log.info("根据生日(yyyy-MM-dd)判断年龄段时, 生日信息为空");
             return age;
         }
         Long current = birthday.getTime();
@@ -111,8 +114,8 @@ public class ConsUtil {
     /**
      * 性别标签转换
      *
-     * @param gender
-     * @return
+     * @param gender 性别码
+     * @return 中文性别名称
      */
     public static String getGenderName(Integer gender) {
         String genderName = "未知";
@@ -153,7 +156,7 @@ public class ConsUtil {
     public static String getConstellation(Date birthday) {
         String constellation = "未知";
         if (birthday == null) {
-            System.out.println("根据生日(yyyy-MM-dd)判断星座时, 生日信息为空");
+            log.info("根据生日(yyyy-MM-dd)判断星座时, 生日信息为空");
             return constellation;
         }
         Calendar calendar = Calendar.getInstance();//日历对象
@@ -161,7 +164,7 @@ public class ConsUtil {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DATE);
-        System.out.println(year + ">>>>" + month + ">>>" + day);
+        log.info(year + ">>>>" + month + ">>>" + day);
         if ((month == 3 && day >= 21 && day <= 31) || (month == 4 && day >= 1 && day <= 19)) {
             constellation = "白羊座";
         }
@@ -216,8 +219,8 @@ public class ConsUtil {
      * <p>
      * 婚期不详（例如年份+上半年）赋值为99
      *
-     * @param weddingDate
-     * @return
+     * @param weddingDate 截止日期
+     * @return 距离截止日期还要多久
      */
     public static Long getPreMonths(Date weddingDate) {
         if (weddingDate == null) {
@@ -239,8 +242,8 @@ public class ConsUtil {
                 d1.add(Calendar.YEAR, 1);
             } while (d1.get(Calendar.YEAR) != y2);
         }
-        double month = Double.valueOf(days) / 30;
-        System.out.println(String.format("days=%s, month=%s", days, month));
-        return Long.valueOf(Math.round(month));
+        double month = days / 30;
+        log.info(String.format("days=%s, month=%s", days, month));
+        return Math.round(month);
     }
 }

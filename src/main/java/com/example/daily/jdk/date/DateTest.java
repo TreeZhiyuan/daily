@@ -1,7 +1,9 @@
 package com.example.daily.jdk.date;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -11,7 +13,7 @@ import java.util.*;
  * @project: daily
  * @description:
  */
-
+@Slf4j
 public class DateTest {
 
     @BeforeClass
@@ -32,15 +34,8 @@ public class DateTest {
 
     @Test
     public void test() {
-        List<String> ls = new ArrayList<String>() {{
-            add("1");
-            add("1l");
-            add("1lll");
-            add("1l@ll");
-        }};
-
+        List<String> ls = Arrays.asList("1","11","1lll","1l@ll");
         System.out.printf("%s\r\n", ls.subList(0, 3));
-
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar c = Calendar.getInstance();
         c.set(2000, 1, 20);
@@ -104,6 +99,21 @@ public class DateTest {
     }
 
     @Test
+    public void 验证录入日期格式(){
+        String delayTiming = "2019/14/15 19:35:00";
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        try{
+            Date strtodate = formatter.parse(delayTiming);
+            if (strtodate.getTime() < (System.currentTimeMillis())) {
+                System.out.println("定时发送时间必须在当前日期之后");
+            }
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
     public void 当月最后一天() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, 1);
@@ -128,7 +138,7 @@ public class DateTest {
         calendar.set(Calendar.MILLISECOND, 0);
 
         Date time = calendar.getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = df.format(time);
         System.out.println(format);
     }

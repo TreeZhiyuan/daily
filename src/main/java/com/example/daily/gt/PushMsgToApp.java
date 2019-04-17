@@ -25,7 +25,6 @@ public class PushMsgToApp {//采用"Java SDK 快速入门"， "第二步 获取�
 
 
     public static void main(String[] args) {
-//        String TASKID = "OSL-0226_MSCXercNjM7LHOKaG5jhq1";
         String TASKID = "OSS-0228_5f32179b298cf29496a74fa2c3ec0fd2";
 
 
