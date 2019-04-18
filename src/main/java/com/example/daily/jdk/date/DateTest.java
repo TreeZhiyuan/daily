@@ -34,7 +34,7 @@ public class DateTest {
 
     @Test
     public void test() {
-        List<String> ls = Arrays.asList("1","11","1lll","1l@ll");
+        List<String> ls = Arrays.asList("1", "11", "1lll", "1l@ll");
         System.out.printf("%s\r\n", ls.subList(0, 3));
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar c = Calendar.getInstance();
@@ -99,18 +99,20 @@ public class DateTest {
     }
 
     @Test
-    public void 验证录入日期格式(){
+    public void 验证录入日期格式() {
         String delayTiming = "2019/14/15 19:35:00";
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        try{
-            Date strtodate = formatter.parse(delayTiming);
-            if (strtodate.getTime() < (System.currentTimeMillis())) {
+        Date str2date = null;
+        try {
+            str2date = formatter.parse(delayTiming);
+            if (str2date.getTime() < (System.currentTimeMillis())) {
                 System.out.println("定时发送时间必须在当前日期之后");
             }
-        }catch (ParseException e){
+        } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
+        assert (str2date instanceof Date);
     }
 
     @Test
