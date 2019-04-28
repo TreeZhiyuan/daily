@@ -14,6 +14,14 @@ import java.util.Date;
  * https://docs.oracle.com/javase/9/docs/api/java/util/Formatter.html
  */
 public class StringSamples {
+    @Test
+    public void 测试转成String(){
+        Long accountId = null;
+//        System.out.println(accountId + "");
+//        System.out.println((accountId + "") instanceof String);
+        String accountIdStr = String.valueOf(accountId);
+        System.out.println(accountIdStr);
+    }
     /**
      * 1000 -> 1,000
      */

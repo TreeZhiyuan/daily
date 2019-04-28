@@ -14,11 +14,11 @@ import java.util.Map;
  */
 public class PushMsgToApp {//采用"Java SDK 快速入门"， "第二步 获取访问凭证 "中获得的应用配置，用户可以自行替换
     //您应用的mastersecret
-    private static final String MASTERSECRET = "iUhI1m3ptS9SNIWw9j18W7";
+    private static final String MASTERSECRET = "";
     //您应用的appkey
-    private static final String APPKEY = "dIOX6LHJb090A4DZNLfzW6";
+    private static final String APPKEY = "";
     //要查询的AppId
-    private static final String APPID = "BiovgjkrzaADTfg13ORcK9";
+    private static final String APPID = "";
 
     static String host ="http://sdk.open.api.igexin.com/apiex.htm";
 
