@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2017, Jiehun.com.cn Inc. All Rights Reserved
- */
-
 package com.example.daily.jdk.date;
 
 import java.text.ParseException;

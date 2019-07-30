@@ -13,7 +13,7 @@ import java.util.List;
 public class IPUtils {
     /**
      * ip地址转换成long数字
-     * 
+     *
      * @param IP
      * @return
      */
@@ -33,12 +33,12 @@ public class IPUtils {
 
     /**
      * long数字转换成ip地址
-     * 
+     *
      * @param IPNum
      * @return
      */
     public static String getIPString(final Long IPNum) {
-        final Long andNumbers[] = { 0xff000000L, 0x00ff0000L, 0x0000ff00L, 0x000000ffL };
+        final Long andNumbers[] = {0xff000000L, 0x00ff0000L, 0x0000ff00L, 0x000000ffL};
         List<String> ipNums = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
             ipNums.add(String.valueOf((IPNum & andNumbers[i]) >> 8 * (3 - i)));
@@ -47,11 +47,10 @@ public class IPUtils {
     }
 
     public static void main(final String[] args) {
-        final String IPStr = "192.185.11.11";
-        System.out.println(getIPNum(IPStr));
-
-        final Long IPNum = 3233352459L;
-        System.out.println(getIPString(IPNum));
+        final String IPStr = "192.185.11.23";
+        Long ipNum = getIPNum(IPStr);
+        System.out.println(IPStr + " transform to long: " + ipNum);
+        System.out.println(ipNum + " transform to ip string: " + getIPString(ipNum));
     }
 
 }
